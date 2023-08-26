@@ -1,7 +1,8 @@
 import './App.css';
-
-// import HomePage from "./pages/HomePage";
-import SignUp from './components/SignUpPage';
+import HomePage from "./pages/HomePage";
+import SignUp from './pages/SignUpPage';
+import Login from './pages/LoginPage';
+import NavBar from './components/NavBar';
  
 import { Routes, Route } from "react-router-dom";  // <== IMPORT
 
@@ -9,12 +10,12 @@ import { Routes, Route } from "react-router-dom";  // <== IMPORT
 function App() {
   return (
     <div className="App">
-    {/* <Navbar /> */}
-    
-    {/*   Add <Route /> components between <Routes> and </Routes>   */} 
+    <NavBar />
+
     <Routes>
-      {/* <Route path="/" element={<HomePage />} />  */}
+      <Route path="/" element={<HomePage />} /> 
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/login"  element={<Login />} />
     
     </Routes>
     
