@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
  
 function SignUp() {
 
-  const [user, setUser] = useState({username: '', password: '', email: ''});
+  const [user, setUser] = useState({username: '', email: '', password: ''});
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -20,8 +20,8 @@ function SignUp() {
   return (
     <div className="signUpContainer">
       <form onSubmit={handleSignupSubmit} className="signUpForm">
-      <div>
-          <h1>Sign up</h1> <br></br>
+      <div><br></br>
+          <h2>Sign up</h2> <br></br>
 
           <label>Username</label>
           <br />
@@ -39,7 +39,7 @@ function SignUp() {
 
           <br></br>
           <br></br>
-        <button type="submit">Sign Up</button>
+          <button  className="round-button2" type="submit">Sign Up</button>
       </div>
       </form>
    

@@ -1,17 +1,15 @@
 import React from 'react';
 
-
 const HomePage = () => {
   return (
-    <div className='home-container'>
-    <div className='sloganContainer'>
-      <p>The place where you can find</p>
-      <p>your art or tech buddy!</p>
+    <div className="home-container">
+      <div className="sloganContainer">
+        <h3>Find your art or tech buddy!</h3>
+      </div>
+      <div className="imageContainer">
+        <img src="./connect-test-image.png" alt="imgTest" />
+      </div>
     </div>
-    <div className='imageContainer'>
-      <img src="/public/connect-test-image.png" alt="imgTest" />
-    </div>
-  </div>
   );
 };
 

@@ -6,8 +6,11 @@ const NavBar = () => {
     <nav className="navbar">
       <div className="navbar-logo">Logo</div>
       <div className="navbar-buttons">
-        <Link to="/signup">Sign Up</Link>
-        <Link to="/login">Log In</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/signup" className="round-button">
+        Sign Up
+        </Link>
+        
       </div>
     </nav>
   );

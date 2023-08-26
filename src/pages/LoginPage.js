@@ -19,8 +19,8 @@ setUser(user => ({...user, [name]: value}))
   return (
     <div className="loginContainer">
       <form onSubmit={handleLoginSubmit} className="loginForm">
-      <div>
-          <h1>Login</h1> 
+      <div><br></br>
+          <h2>Login</h2> 
           <br></br>
 
           <label>Email:</label>
@@ -35,7 +35,7 @@ setUser(user => ({...user, [name]: value}))
           <br></br>
           <br></br>
 
-        <button type="submit">Log In</button>
+          <button  className="round-button2" type="submit">Log In</button>
       </div>
       </form>
    

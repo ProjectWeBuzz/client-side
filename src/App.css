@@ -41,13 +41,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
+  background-color: #fca252;
   color: white;
   padding: 10px 20px;
 }
 
 .navbar-logo {
   font-size: 24px;
+  color: #E9C46A;
 }
 
 .navbar-buttons a {
@@ -60,3 +61,56 @@
   margin-left: 0;
 }
 
+.signUpContainer h2{
+  color: #00a8a8;
+}
+
+.loginContainer h2{
+  color: #00a8a8;
+}
+
+.round-button {
+  display: inline-block;
+  background-color: #f3bb7b;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px
+}
+
+.round-button2 {
+  border-color: #f3bb7b;
+  background-color: #f3bb7b;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+/* Style for the rectangular container */
+.home-container {
+  display: flex;
+  padding: 100px; /* Add padding to space the content from the edges */
+}
+
+.sloganContainer {
+  flex: 1;
+  padding-right: 25px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+  color: #d95d39;
+}
+
+.imageContainer {
+  flex: 1;
+}
+
+.imageContainer img {
+  max-width: 80%;
+  height: auto;
+}
