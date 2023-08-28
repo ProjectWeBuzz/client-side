@@ -3,8 +3,8 @@ import HomePage from "./pages/HomePage";
 import SignUp from './pages/SignUpPage';
 import Login from './pages/LoginPage';
 import NavBar from './components/NavBar';
- 
-import { Routes, Route } from "react-router-dom";  // <== IMPORT
+import { Routes, Route } from "react-router-dom";
+
 
 
 function App() {

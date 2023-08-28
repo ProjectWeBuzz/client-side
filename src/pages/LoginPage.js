@@ -1,9 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+ 
+const API_URL = "http://localhost:5005";
+
 
 function Login () {
 
-const [user, setUser] = useState({password: '', email: ''});
+const [user, setUser] = useState({email: '', password: '' });
+const [errorMessage, setErrorMessage] = useState(undefined);
+const navigate = useNavigate();
+
 
 const handleChange = (e) => {
 const name = e.target.name;
