@@ -12,7 +12,8 @@ const [user, setUser] = useState({email: '', password: '' });
 const [errorMessage, setErrorMessage] = useState(undefined);
 const navigate = useNavigate();
 
-const { storeToken } = useContext(AuthContext); 
+const { storeToken, authenticateUser } = useContext(AuthContext);
+ 
 
 const handleChange = (e) => {
 const name = e.target.name;
@@ -27,11 +28,9 @@ setUser(user => ({...user, [name]: value}))
  
     axios.post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-      // Request to the server's endpoint `/auth/login` returns a response
-      // with the JWT string ->  response.data.authToken
         console.log('JWT token', response.data.authToken );
-      
-        navigate('/');                             // <== ADD      
+        authenticateUser();
+        navigate('/'); 
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;

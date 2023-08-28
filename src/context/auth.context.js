@@ -14,13 +14,58 @@ function AuthProviderWrapper(props) {
     localStorage.setItem('authToken', token);
   }
 
+  const authenticateUser = () => { 
+    // Get the stored token from the localStorage
+    const storedToken = localStorage.getItem('authToken');
+    
+    if (storedToken) {
+      // We must send the JWT token in the request's "Authorization" Headers
+      axios.get(
+        `${API_URL}/auth/verify`, 
+        { headers: { Authorization: `Bearer ${storedToken}`} }
+      )
+      .then((response) => {
+        const user = response.data;       
+        setIsLoggedIn(true);
+        setIsLoading(false);
+        setUser(user);        
+      })
+      .catch((error) => {       
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        setUser(null);        
+      });      
+      
+    } else {
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        setUser(null);      
+    };  
+  }
+
+  const removeToken = () => {                  
+    localStorage.removeItem("authToken");
+  }
+
+  const logOutUser = () => {
+    removeToken();
+    // and update the state variables    
+    authenticateUser();
+  }  
+  
+  useEffect(() => {                 
+    authenticateUser()
+  }, []);
+
   return (                                                
       <AuthContext.Provider 
         value={{ 
           isLoggedIn,
           isLoading,
           user,
-          storeToken
+          storeToken,
+          authenticateUser,
+          logOutUser
         }}
       >
       {props.children}
