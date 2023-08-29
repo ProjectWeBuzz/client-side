@@ -12,6 +12,7 @@ const HomePage = () => {
       <div className="imageContainer">
         <img src="./connect-test-image.png" alt="imgTest" />
       </div>
+     <Link to="/api/projects">Find Projects to Collab</Link>
     </div>
   );
 };
