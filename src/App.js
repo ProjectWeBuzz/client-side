@@ -4,7 +4,8 @@ import SignUp from './pages/SignUpPage';
 import Login from './pages/LoginPage';
 import NavBar from './components/NavBar';
 import { Routes, Route } from "react-router-dom";
-
+import IsPrivate from "./components/IsPrivate";
+import IsAnon from "./components/IsAnon";  
 
 
 function App() {
@@ -13,11 +14,13 @@ function App() {
     <NavBar />
 
     <Routes>
-      <Route path="/" element={<HomePage />} /> 
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/login"  element={<Login />} />
-      {/* <Route path="/projects" element={ <ProjectListPage /> } />
-        <Route path="/projects/:projectId" element={ <ProjectDetailsPage /> } /> */}
+      <Route path="/" element={<IsAnon><HomePage /></IsAnon>} /> 
+      <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
+      <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
+      <Route path="/projects" element={ <IsPrivate><ProjectListPage /></IsPrivate> } />
+      <Route path="/projects/:projectId" element={ <IsPrivate><ProjectDetailsPage /></IsPrivate> } />
+      <Route path="/projects/edit/:projectId" element={ <IsPrivate> <EditProjectPage /> </IsPrivate> } />
+      <Route path="/inbox" element={ <IsPrivate><InboxPage /></IsPrivate> } />  
     
     </Routes>
     
