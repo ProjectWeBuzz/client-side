@@ -1,6 +1,10 @@
 import { useState } from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom"
+
+const API_URL = "http://localhost:5005";
  
-function CreateProject(props) {
+function CreateProject() {
 
   const [title, setTitle] = useState("");
 //   const [owner, setOwner] = useState("");
@@ -13,12 +17,24 @@ function CreateProject(props) {
   const [creationdate, setCreationdate] = useState(Date);
 //   const [collabs, setCollabs] = useState([""]);
   const [IsPrivate, setIsPrivate] = useState(true);
+
+  const navigate = useNavigate();
+
+
  
+//   add an onChange event to each input element and create a handler function for each input
+
+  const handleTitleInput = e => setTitle(e.target.value);
+  const handleDescriptionInput = e => setDescription(e.target.value);
+  const handleImagesInput = e => setImages(e.target.value);
+  const handletagsInput = e => setTags(e.target.checked);
+  const handleMediaInput = e => setMedia(e.target.value);
+  const handleSocialLinksProjectInput = e => setSociallinksproject(e.target.value);
+  const handleCreationDateInput = e => setCreationdate(e.target.checked);
 
   const handleCheckboxChange = (e) => {
     setIsPrivate(e.target.checked);
   };
-
 
   const handleTechnologiesChange = (event) => {
     const { value } = event.target;
@@ -39,8 +55,12 @@ function CreateProject(props) {
   };
 
 
+// Prevent default
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const newProject = {title:title, description:description, images:images, tags:tags, technologies:technologies, media:media, sociallinksproject:sociallinksproject, creationdate:creationdate, IsPrivate:IsPrivate}
+    console.log("Submitted: ", newProject);
   };
 
 
@@ -56,6 +76,7 @@ function CreateProject(props) {
             type="text" 
             name="title" 
             value={title} 
+            onChange={handleTitleInput}
         />
         
         {/* The "owner" is automaticcally assocciated to the id of the user/creator  */}
@@ -72,6 +93,7 @@ function CreateProject(props) {
             type="text" 
             name="description" 
             value={description} 
+            onChange={handleDescriptionInput}
         />
   
         <label key={images}>Images: </label>
@@ -79,6 +101,7 @@ function CreateProject(props) {
             type="string" 
             name="images" 
             checked={images} 
+            onChange={handleImagesInput}
         />
 
         <label key={tags}>Tags (max.5): </label>
@@ -86,6 +109,7 @@ function CreateProject(props) {
             type="text" 
             name="tags" 
             checked={tags} 
+            onChange={handletagsInput}
         />
 
         <label key={technologies}>Technologies: </label>
@@ -102,6 +126,7 @@ function CreateProject(props) {
             type="string" 
             name="media" 
             checked={media} 
+            onChange={handleMediaInput}
         />
         
         <label key={sociallinksproject}>Related Links: </label>
@@ -109,6 +134,7 @@ function CreateProject(props) {
             type="string" 
             name="sociallinksproject" 
             checked={sociallinksproject} 
+            onChange={handleSocialLinksProjectInput}
         />
 
         <label key={creationdate}>Creation Date: </label>
@@ -116,6 +142,7 @@ function CreateProject(props) {
             type="date" 
             name="creationdate" 
             checked={creationdate} 
+            onChange={handleCreationDateInput}
         />
 
         {/* For adding collabs, is through the website - Collab Page or Messsages!!! */}

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+
+import CreateProject from "../components/CreateProject"
  
 function AllProjectsPage (props) {                    
   const [projects, setProjects] = useState([]);
@@ -8,12 +10,19 @@ function AllProjectsPage (props) {
   // when the `props.projects` updates.
   useEffect(() => {
     setProjects(props.projects);                  
-  }, [props.projects]);                           
+  }, [props.projects]);       
+  
+  const AddNewProject = (project) => {
+    const updatedProjects = [...projects, project];
+ 
+    setProjects(updatedProjects);
+  };
  
   
   return (
     <div>
       <h1>Projects</h1>
+      <CreateProject addProject={AddNewProject}/>
       {projects.map((project) => {
         return (
           <div key={project._id} className="project">

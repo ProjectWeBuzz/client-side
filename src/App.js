@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
+import CreateProject from "./components/CreateProject"
 
 
 import ErrorPage from "./pages/ErrorPage";
@@ -25,6 +26,7 @@ function App() {
       <Route path="/" element={<IsAnon><HomePage /></IsAnon>} /> 
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
+      <Route path="/create-project" element={ <IsPrivate><CreateProject /></IsPrivate> } />
       <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } />
       {/* <Route path="/projects/:projectId" element={ <IsPrivate><ProjectDetailsPage /></IsPrivate> } />
       <Route path="/projects/edit/:projectId" element={ <IsPrivate> <EditProjectPage /> </IsPrivate> } />
