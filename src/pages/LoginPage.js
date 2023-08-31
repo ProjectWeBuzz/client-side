@@ -12,7 +12,7 @@ const [user, setUser] = useState({email: '', password: '' });
 const [errorMessage, setErrorMessage] = useState(undefined);
 const navigate = useNavigate();
 
-const { storeToken, authenticateUser } = useContext(AuthContext);
+const { authenticateUser, logOutUser, isLoggedIn, storeToken } = useContext(AuthContext);
  
 
 const handleChange = (e) => {
@@ -22,24 +22,36 @@ const value = e.target.value;
 setUser(user => ({...user, [name]: value}))
 };
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    const requestBody = { email: user.email, password: user.password };
- 
-    axios.post(`${API_URL}/auth/login`, requestBody)
-      .then((response) => {
-        console.log('JWT token', response.data.authToken );
-        authenticateUser();
-        navigate('/'); 
-      })
-      .catch((error) => {
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
-      })
+const handleLoginSubmit = (e) => {
+  e.preventDefault();
+  const requestBody = {
+    email: user.email,
+    password: user.password
+  };
+
+  axios.post(`${API_URL}/auth/login`, requestBody)
+    .then((response) => {
+      const authToken = response.data.authToken;
+      storeToken(authToken);
+      authenticateUser(); 
+      navigate('/profile');
+    })
+    .catch((error) => {
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
+    });
+};
+
+  const handleLogout = () => {
+    logOutUser();
   };
 
   return (
+
     <div className="loginContainer">
+      {isLoggedIn ? (
+        <button onClick={handleLogout}>Log Out</button>
+      ) : (
       <form onSubmit={handleLoginSubmit} className="loginForm">
       <div><br></br>
           <h2>Login</h2> 
@@ -60,12 +72,13 @@ setUser(user => ({...user, [name]: value}))
           <button  className="round-button2" type="submit">Log In</button>
       </div>
       </form>
-      { errorMessage && <p className="error-message">{errorMessage}</p> }
+      )}
+       { errorMessage && <p className="error-message">{errorMessage}</p> }
 
       <p>Don't have an account yet?</p>
       <Link to={"/signup"}>Sign Up</Link>
-      </div>
-  )
+    </div>
+  );
 }
 
 export default Login;

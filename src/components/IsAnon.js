@@ -1,4 +1,3 @@
-// src/components/IsAnon.js
 
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
@@ -11,11 +10,11 @@ function IsAnon( { children } ) {
   if (isLoading) return <p>Loading ...</p>;
 
   if (isLoggedIn) {
-    // If the user is logged in, navigate to the home page     
-    return <Navigate to="/" />;
+       
+    return <Navigate to="/profile" />;
   } else {
-    // If the user is not logged in, allow to see the page 
-    return children;
+   
+    return children; 
   }
 }
 
