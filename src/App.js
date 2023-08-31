@@ -3,17 +3,12 @@ import HomePage from "./pages/HomePage";
 import SignUp from './pages/SignUpPage';
 import Login from './pages/LoginPage';
 import NavBar from './components/NavBar';
+import UserProfile from './pages/UserProfilePage';
 import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
+import AllProjectsPage from "./pages/AllProjectsPage"
 import CreateProject from "./components/CreateProject"
-
-
-import ErrorPage from "./pages/ErrorPage";
-import AllProjectsPage from './pages/AllProjectsPage';
-// import ProjectDetailsPage from '../src/pages/components/ProjectDetailsPage';
-// import EditProjectPage from '../src/pages/components/EditProjectPage';
-// import InboxPage from '../src/pages/components/InboxPage';
 
 
 function App() {
@@ -26,13 +21,16 @@ function App() {
       <Route path="/" element={<IsAnon><HomePage /></IsAnon>} /> 
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
-      <Route path="/create-project" element={ <IsPrivate><CreateProject /></IsPrivate> } />
-      <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } />
+      <Route path="/profile" element={<IsPrivate><UserProfile /></IsPrivate>} />
+      <Route path="/create-project" element={ <CreateProject /> } /> 
+      <Route path="/projects" element={ <AllProjectsPage /> } /> 
+
+
+      {/* Rota anterior : <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } /> */}
+
       {/* <Route path="/projects/:projectId" element={ <IsPrivate><ProjectDetailsPage /></IsPrivate> } />
       <Route path="/projects/edit/:projectId" element={ <IsPrivate> <EditProjectPage /> </IsPrivate> } />
       <Route path="/inbox" element={ <IsPrivate><InboxPage /></IsPrivate> } />   */}
-      <Route path="*" element={ <ErrorPage /> } />
-
     </Routes>
     
   </div>

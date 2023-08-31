@@ -25,10 +25,10 @@ function SignUp() {
  
     axios.post(`${API_URL}/auth/signup`, requestBody)
       .then((response) => {
-        navigate('/login');
+        navigate('/profile');
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message; // Is this correct????? data is undefinied
+        const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       })
   };
