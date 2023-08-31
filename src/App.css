@@ -114,3 +114,10 @@
   max-width: 80%;
   height: auto;
 }
+
+.placeholder-photo {
+  width: 150px;
+  height: 150px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
