@@ -14,7 +14,7 @@ function CreateProject() {
   const [title, setTitle] = useState("");
 //       const [owner, setOwner] = useState("");
   const [description, setDescription] = useState("");
-  const [images, setImages] = useState(null);
+//   const [images, setImages] = useState(null);
   const [tags, setTags] = useState(["tag1", "tag2"]);
   const [sociallinksproject, setSociallinksproject] = useState(["link1", "link2"]);
   const [creationdate, setCreationdate] = useState("");
@@ -22,7 +22,11 @@ function CreateProject() {
   const [IsPrivate, setIsPrivate] = useState(true);
 
 
-  const tagLimit = tags.length >= 5;
+const tagLimit = tags.length >= 5;
+
+const handleCheckboxChange = (e) => {
+    setIsPrivate(e.target.checked);
+  };
 
 //   const navigate = useNavigate();
  
@@ -39,24 +43,23 @@ function CreateProject() {
 
 
 
-  const handleCheckboxChange = (e) => {
-    setIsPrivate(e.target.checked);
-  };
-
-
-
 // Prevent default
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !description) {
-        alert("Title and description are required.");
-        return;
-      }
+    const newProject = {title:title, description:description, tags:tags, sociallinksproject:sociallinksproject, creationdate:creationdate, IsPrivate:IsPrivate}
+    
+    console.log("Submitted: ", newProject);
+  
+
+    // if (!title || !description) {
+    //     alert("Title and description are required.");
+    //     return;
+    //   }
     
 
-    const formData = new FormData(); // Create a FormData object to send files
+    // const formData = new FormData(); // Create a FormData object to send files
 
     // Append the selected file(s) to the FormData
     // if (images) {
@@ -65,30 +68,28 @@ function CreateProject() {
     //   }
     // }
 
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("tags", tags);
-    formData.append("sociallinksproject", sociallinksproject);
-    formData.append("creationdate", creationdate);
-    formData.append("IsPrivate", IsPrivate);
+    // formData.append("title", title);
+    // formData.append("description", description);
+    // formData.append("tags", tags);
+    // formData.append("sociallinksproject", sociallinksproject);
+    // formData.append("creationdate", creationdate);
+    // formData.append("IsPrivate", IsPrivate);
 
 
     const storedToken = localStorage.getItem("authToken");
 
+
     axios
-        .post(`${API_URL}/api/projects`, formData, {
+        .post(`${API_URL}/api/projects`, newProject, {
             headers:{
-                Authorization: `Bearer ${storedToken}`,
-                "Content-Type": "multipart/form-data"
+                Authorization: `Bearer ${storedToken}`
             },
         })
-        .then((response) => {
-
-            console.log("Submitted: ", response.data);
+        .then(() => {
 
             setTitle("");
             setDescription("");
-            setImages(null);
+            // setImages(null);
             setTags([]);
             setSociallinksproject([]);
             setCreationdate("");
@@ -96,15 +97,13 @@ function CreateProject() {
 
         })
         .catch((error) => console.log(error));
+};
 
 
-  };
-
-
-  const handleImagesSubmit = (e) => {
-    const files = e.target.files;
-    setImages(files);
-  };
+//   const handleImagesSubmit = (e) => {
+//     const files = e.target.files;
+//     setImages(files);
+//   };
 
 
  
@@ -120,7 +119,6 @@ function CreateProject() {
             name="title" 
             value={title} 
             onChange={(e) => setTitle(e.target.value)}
-            required
         />
         <br></br>
         {/* The "owner" is automaticcally assocciated to the id of the user/creator  */}
@@ -138,18 +136,17 @@ function CreateProject() {
             name="description" 
             value={description} 
             onChange={(e) => setDescription(e.target.value)}
-            required
         />
         
         <br></br>
 
-        <label>Images: </label>
+        {/* <label>Images: </label>
         <input 
             type="file" 
             name="images"
             multiple
             onChange={handleImagesSubmit}
-        />
+        /> */}
 
         <br></br>
 
@@ -190,8 +187,8 @@ function CreateProject() {
         {/* <label>Collaborators: </label>
         <input 
             type="string" 
-            name="sociallinksproject" 
-            checked={sociallinksproject} 
+            name="" 
+            checked={} 
         /> */}
 
         <label>Private: </label>
@@ -212,5 +209,6 @@ function CreateProject() {
     </div>
   );
 }
+
  
 export default CreateProject;
