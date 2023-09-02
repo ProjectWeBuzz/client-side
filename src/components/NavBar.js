@@ -5,6 +5,7 @@ import { AuthContext } from "../context/auth.context";
 
 
 
+
 const NavBar = () => {
 
     const { isLoggedIn, user, logOutUser  } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const NavBar = () => {
       {isLoggedIn ? (
         <>
         <Link to="/profile"><button className="round-button">Profile</button></Link>
-          <Link to="/projects"><button className="round-button">Projects</button></Link>
+          <Link to="/projects"><button className="round-button">Project Hive</button></Link>
           <button className="round-button" onClick={logOutUser}>Logout</button>
           <span>{user && user.username}</span>        
         </>
