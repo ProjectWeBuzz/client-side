@@ -27,7 +27,7 @@ function App() {
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
 
       <Route path="/profile" element={<IsPrivate><UserProfile /> </IsPrivate>} />
-      {/* <Route path="/colabs" element={<IsPrivate><Colabs /></IsPrivate>} />
+      {/* <Route path="/colabs" element={<IsPrivate><Colabs/></IsPrivate>} /> */}
 
       <Route path="/create-project" element={ <CreateProject /> } /> 
       <Route path="/projects" element={ <AllProjectsPage /> } /> 
