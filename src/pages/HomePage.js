@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Link } from "react-router-dom";
-// const API_URL = "http://localhost:5005";
 
 
 const HomePage = () => {
@@ -13,7 +11,6 @@ const HomePage = () => {
       <div className="imageContainer">
         <img src="./connect-test-image.png" alt="imgTest" />
       </div>
-     <Link to="/projects">Find Projects to Collab</Link>
     </div>
   );
 };
