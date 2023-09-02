@@ -37,19 +37,26 @@ function ProjectDetails () {
     return (
         <div className="ProjectDetails">
             <h2>Project Details</h2>
+            <br></br>
+            <br></br>
             {/* <img style={{width:"30px"}} src={project.image_url} alt={project.title} /> */}
             <h3>{project.title}</h3>
+            <br></br>
             <p>Description: {project.description}</p>
             <p>Tags: {project.tags}</p>
             <p>Social Links: {project.sociallinksproject}</p>
             <p>Creation Date: {project.creationdate}</p>
             <p>Private: {project.IsPrivate ? 'Yes' : 'No'}</p>
 
-            
+            <br></br>
+            <br></br>
 
-            <Link to="/projects"><button>Back to Projects</button></Link>
+            <Link to="/projects"><button className="round-button">Back to Projects</button></Link>
 
-            <Link to={`/projects/edit/${projectId}`}><button>Edit Project</button></Link>
+            <br></br>
+            <br></br>
+
+            <Link to={`/projects/edit/${projectId}`}><button className="round-button">Edit Project</button></Link>
         </div>
     );
 }

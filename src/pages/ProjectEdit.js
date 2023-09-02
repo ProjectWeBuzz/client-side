@@ -66,6 +66,29 @@ function EditProjectPage(props) {
 };
 
 
+const deleteProject = () => {                    
+
+    const userConfirmed = window.confirm("Are you sure you want to delete this project?");
+
+    // Make a DELETE request to delete the project
+
+    if(userConfirmed){
+    axios
+      .delete(`${API_URL}/api/projects/${projectId}`)
+      .then(() => {
+        // Once the delete request is resolved successfully
+        // navigate back to the list of projects.
+        navigate("/projects");
+      })
+      .catch((err) => console.log(err));
+    }
+    else{
+        navigate(`/projects/${projectId}`);
+        console.log("Deletion was canceled")
+    }
+  };
+
+
   return (
     <div className="EditProjectPage">
 
@@ -155,6 +178,11 @@ function EditProjectPage(props) {
         
     <br></br>
     <br></br>
+
+        <button onClick={deleteProject}>Delete Project</button>
+
+        <br></br>
+        <br></br>
 
         <button type="submit">Update {title}</button>
       </form>
