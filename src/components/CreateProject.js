@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context"; // Import your AuthContext here
+import { useNavigate } from "react-router-dom";
 
 // import {useNavigate} from "react-router-dom"
 
@@ -8,6 +9,8 @@ import { AuthContext } from "../context/auth.context"; // Import your AuthContex
 const API_URL = "http://localhost:5005";
  
 function CreateProject() {
+
+  const navigate = useNavigate();
 
     const { storeToken } = useContext(AuthContext); // Access the storeToken function from your AuthContext
 
@@ -95,6 +98,8 @@ const handleCheckboxChange = (e) => {
             setCreationdate("");
             setIsPrivate(true);
 
+            navigate('/projects');
+
         })
         .catch((error) => console.log(error));
 };
@@ -131,8 +136,7 @@ const handleCheckboxChange = (e) => {
         /> */}
   
         <label>Description: </label>
-        <input 
-            type="text" 
+        <textarea 
             name="description" 
             value={description} 
             onChange={(e) => setDescription(e.target.value)}

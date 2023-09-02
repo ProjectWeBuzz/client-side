@@ -7,8 +7,10 @@ import UserProfile from './pages/UserProfilePage';
 import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
-import AllProjectsPage from "./pages/AllProjectsPage"
-import CreateProject from "./components/CreateProject"
+import AllProjectsPage from "./pages/AllProjectsPage";
+import CreateProject from "./components/CreateProject";
+import ProjectDetails from "./pages/ProjectDetails";
+import ProjectEdit from "./pages/ProjectEdit";
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
       <Route path="/profile" element={<IsPrivate><UserProfile /></IsPrivate>} />
       <Route path="/create-project" element={ <CreateProject /> } /> 
       <Route path="/projects" element={ <AllProjectsPage /> } /> 
+      <Route path="/projects/:projectId" element={<ProjectDetails/>}></Route>
+      <Route path="/projects/edit/:projectId" element={<ProjectEdit/>}></Route>
 
 
       {/* Rota anterior : <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } /> */}

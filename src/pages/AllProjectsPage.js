@@ -29,15 +29,26 @@ function AllProjectsPage () {
 
     return (
       <div>
+        <br></br>
+
         <h1>Projects</h1>
         <Link to="/create-project"><button className="round-button">Add New Project</button></Link>
+        
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
         
         {projects.map((project) => {
           return (
             <div key={project._id} className="project">
               <h3>{project.title}</h3>
               <p>{project.description}</p>
-              <Link to={`/projects/${project._id}`}></Link>
+              <Link to={`/projects/${project._id}`}>
+                <h3>{project.title}</h3>
+              </Link>
+              <br></br>
+              <br></br>
             </div>
           );
         })}
