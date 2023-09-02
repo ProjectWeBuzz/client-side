@@ -10,18 +10,20 @@ function IsPrivate( { children } ) {
   console.log("isLoggedIn:", isLoggedIn);
  
   // If the authentication is still loading 
-  if (isLoading) return <p>Loading your hive... 🐝 </p>;
+  // if (isLoading) return <p>Loading your hive... 🐝 </p>;
 
-  if (isLoggedIn) { 
-    return <Navigate to="/profile" />;
-  }
+  // if (isLoggedIn) { 
+  //   return <Navigate to="/profile" />;
+  // }
 
-  if (!isLoggedIn) {
-    return <Navigate to="/" />;
+  return isLoading ? <p>Loading...</p> :!isLoggedIn ? <Navigate to = '/login' /> : children
 
-  } else {
-    return children;
-  }
+//   if (!isLoggedIn) {
+//     return <Navigate to="/" />;
+
+//   } else {
+//     return children;
+//   }
 }
  
 export default IsPrivate;

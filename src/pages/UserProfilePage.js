@@ -1,12 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from "../context/auth.context";
 import { Link } from 'react-router-dom';
+import Hamburger from "../components/Hamburger";
+import { useEffect } from 'react'; 
+
 
 const UserProfile = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false); // State to manage the menu
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen); // Toggle the menu state
+  };
+
+  useEffect(() => {
+    
+  }, []);
 
   return (
     <div className="container">
+      <Hamburger isOpen={menuOpen} toggleMenu={toggleMenu} /> 
       {isLoggedIn ? (
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-4">
