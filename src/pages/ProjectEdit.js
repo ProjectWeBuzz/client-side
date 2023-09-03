@@ -6,8 +6,8 @@ import {useParams, useNavigate} from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
 
-function EditProjectPage(props) {
 
+function EditProjectPage(props) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -44,7 +44,6 @@ function EditProjectPage(props) {
         setSociallinksproject(oneProject.sociallinksproject);
         setCreationdate(oneProject.creationdate);
         setIsPrivate(oneProject.IsPrivate);
-
       })
       .catch((error) => console.log(error));
     
@@ -179,15 +178,19 @@ const deleteProject = () => {
     <br></br>
     <br></br>
 
-        <button onClick={deleteProject}>Delete Project</button>
 
-        <br></br>
-        <br></br>
-
-        <button type="submit">Update {title}</button>
+        <button type="submit" className="round-button">Update {title}</button>
       </form>
+
+      <br></br>
+        <br></br>
+
+        <button className="round-button" onClick={deleteProject}>Delete {title}</button>
     </div>
   );
 }
 
 export default EditProjectPage;
+
+
+
