@@ -38,11 +38,12 @@ function AllProjectsPage () {
         <br></br>
         <br></br>
         <br></br>
-        
+
         {projects.map((project) => {
           return (
             <div key={project._id} className="project">
               <h3>{project.title}</h3>
+              <img src={project.images} alt="projectimage"></img>
               <p>{project.description}</p>
               <Link to={`/projects/${project._id}`}>
                 <h3>{project.title}</h3>

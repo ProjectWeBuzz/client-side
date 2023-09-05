@@ -6,18 +6,15 @@ import { useNavigate } from "react-router-dom";
 // import {useNavigate} from "react-router-dom"
 
 
-const API_URL = "http://localhost:5005";
  
 function CreateProject() {
-
-  const navigate = useNavigate();
 
     const { storeToken } = useContext(AuthContext); // Access the storeToken function from your AuthContext
 
   const [title, setTitle] = useState("");
 //       const [owner, setOwner] = useState("");
   const [description, setDescription] = useState("");
-//   const [images, setImages] = useState(null);
+  const [images, setImages] = useState({});
   const [tags, setTags] = useState(["tag1", "tag2"]);
   const [sociallinksproject, setSociallinksproject] = useState(["link1", "link2"]);
   const [creationdate, setCreationdate] = useState("");
@@ -27,88 +24,68 @@ function CreateProject() {
 
 const tagLimit = tags.length >= 5;
 
+const navigate = useNavigate();
+
 const handleCheckboxChange = (e) => {
     setIsPrivate(e.target.checked);
   };
 
-//   const navigate = useNavigate();
- 
-//   add an onChange event to each input element and create a handler function for each input
 
-//   const handleTitleInput = e => setTitle(e.target.value);
-//   const handleDescriptionInput = e => setDescription(e.target.value);
-//   const handleImagesInput = e => setImages(e.target.value);
-//   const handletagsInput = e => setTags(e.target.checked);
-//   const handleMediaInput = e => setMedia(e.target.value);
-//   const handleSocialLinksProjectInput = e => setSociallinksproject(e.target.value);
-//   const handleCreationDateInput = e => setCreationdate(e.target.checked);
-
-
+const handleFileChange = (e) => {
+  setImages(e.target.files[0]);
+};
 
 
 // Prevent default
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newProject = {title:title, description:description, tags:tags, sociallinksproject:sociallinksproject, creationdate:creationdate, IsPrivate:IsPrivate}
+    let uploadResult = null; 
+
+    const newProject = {
+      title, 
+      description, 
+      tags, 
+      images, 
+      sociallinksproject, 
+      creationdate, 
+      IsPrivate,
+    };
+
+    try {
+      console.log(images);
+      const formData = new FormData();
+      formData.append("file", images); // Use "file" as the key
+
+      const storedToken = localStorage.getItem("authToken");
+
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/projects`, {formData}, {
+              headers:{
+                  Authorization: `Bearer ${storedToken}`,
+              },
+          });
+
+    } catch (error) {
+      console.error('Error uploading image or creating project:', error);
+    }
+
     
     console.log("Submitted: ", newProject);
+
   
 
-    // if (!title || !description) {
-    //     alert("Title and description are required.");
-    //     return;
-    //   }
-    
-
-    // const formData = new FormData(); // Create a FormData object to send files
-
-    // Append the selected file(s) to the FormData
-    // if (images) {
-    //   for (let i = 0; i < images.length; i++) {
-    //     formData.append("images", images[i]);
-    //   }
-    // }
-
-    // formData.append("title", title);
-    // formData.append("description", description);
-    // formData.append("tags", tags);
-    // formData.append("sociallinksproject", sociallinksproject);
-    // formData.append("creationdate", creationdate);
-    // formData.append("IsPrivate", IsPrivate);
-
-
-    const storedToken = localStorage.getItem("authToken");
-
-
-    axios
-        .post(`${API_URL}/api/projects`, newProject, {
-            headers:{
-                Authorization: `Bearer ${storedToken}`
-            },
-        })
-        .then(() => {
 
             setTitle("");
             setDescription("");
-            // setImages(null);
+            setImages(null);
             setTags([]);
             setSociallinksproject([]);
             setCreationdate("");
             setIsPrivate(true);
 
             navigate('/projects');
-
-        })
-        .catch((error) => console.log(error));
-};
-
-
-//   const handleImagesSubmit = (e) => {
-//     const files = e.target.files;
-//     setImages(files);
-//   };
+  }
 
 
  
@@ -144,13 +121,13 @@ const handleCheckboxChange = (e) => {
         
         <br></br>
 
-        {/* <label>Images: </label>
+        <label>Images: </label>
         <input 
-            type="file" 
+            type="file"
             name="images"
-            multiple
-            onChange={handleImagesSubmit}
-        /> */}
+            accept="image/*"
+            onChange={handleFileChange}
+        />
 
         <br></br>
 
@@ -212,7 +189,9 @@ const handleCheckboxChange = (e) => {
 
     </div>
   );
+  
 }
+
 
  
 export default CreateProject;
