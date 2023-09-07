@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from "react"; 
 import { AuthContext } from "../context/auth.context";
-
-
+import UserProfile from '../pages/UserProfilePage';
 
 
 const NavBar = () => {
@@ -16,10 +15,10 @@ const NavBar = () => {
 
       {isLoggedIn ? (
         <>
-        <Link to="/profile"><button className="round-button">Profile</button></Link>
-          <Link to="/projects"><button className="round-button">Project Hive</button></Link>
-          <button className="round-button" onClick={logOutUser}>Logout</button>
-          <span>{user && user.username}</span>        
+        <Link to="/profile">Profile </Link>
+          <Link to="/projects">Project Hive </Link>
+          {/* <button className="round-button" onClick={logOutUser}>Logout</button> */}
+                
         </>
       ) : (
       
