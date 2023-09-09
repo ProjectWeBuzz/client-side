@@ -37,7 +37,7 @@ const UserProfile = () => {
               <p>{user.email}</p>
               <p>{user.sociallinks}</p>
               <br></br>
-              <Link to="/profile/settings" className="btn btn-primary btn-block mb-2">
+              <Link to="/profile/update-profile" className="btn btn-primary btn-block mb-2">
                 Edit Profile
               </Link>   <br></br>
             </div>

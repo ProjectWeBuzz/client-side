@@ -30,8 +30,8 @@ function App() {
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
 
-      <Route path="/profile" element={<IsPrivate><UserProfile /> </IsPrivate>} />
-      <Route path="/profile/update-profile/:username" element={<IsPrivate><UserSettings /></IsPrivate>} />
+      <Route path="/profile/" element={<IsPrivate><UserProfile /> </IsPrivate>} />
+      <Route path="/profile/update-profile" element={<IsPrivate><UserSettings /></IsPrivate>} />
       {/* <Route path="/colabs" element={<IsPrivate><Colabs/></IsPrivate>} /> */}
 
       <Route path="/create-project" element={<IsPrivate> <CreateProject /> </IsPrivate> } /> 
