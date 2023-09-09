@@ -34,17 +34,17 @@ function App() {
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
 
 
-      <Route path="/profile/" element={<IsPrivate><UserProfile /> </IsPrivate>} />
+      <Route path="/profile/:username" element={<IsPrivate><UserProfile /> </IsPrivate>} />
       <Route path="/profile/update-profile" element={<IsPrivate><UserSettings /></IsPrivate>} />
       {/* <Route path="/colabs" element={<IsPrivate><Colabs/></IsPrivate>} /> */}
 
-      <Route path="/create-project" element={<IsPrivate> <CreateProject /> </IsPrivate> } /> 
+      {/* <Route path="/create-project" element={<IsPrivate> <CreateProject /> </IsPrivate> } />  */}
       <Route path="/projects" element={<IsPrivate><AllProjectsPage /> </IsPrivate>} /> 
       <Route path="/projects/:projectId" element={<IsPrivate><ProjectDetails/> </IsPrivate>}>  </Route>
       <Route path="/projects/edit/:projectId" element={<IsPrivate><ProjectEdit/> </IsPrivate>}> </Route>
 
-      {/* <Route path="/profile" element={<IsPrivate><UserProfile /> </IsPrivate>} /> */}
-      <Route path="/profile" element={<IsPrivate><NewProfile /> </IsPrivate>}/>
+     
+      {/* <Route path="/profile" element={<IsPrivate><  UserProfile/> </IsPrivate>}/> */}
       {/* <Route path="/colabs" element={<IsPrivate><Colabs/></IsPrivate>} /> */}
 
       {/* <Route path="/create-project" element={ <CreateProject /> } />  */}
@@ -52,8 +52,8 @@ function App() {
 
       <Route path="/projects" element={ <AllProjectsPage /> } /> 
       
-      <Route path="/projects/:projectId" element={<ProjectDetails/>}></Route>
-      <Route path="/projects/edit/:projectId" element={<ProjectEdit/>}></Route>
+      {/* <Route path="/projects/:projectId" element={<ProjectDetails/>}></Route> */}
+      {/* <Route path="/projects/edit/:projectId" element={<ProjectEdit/>}></Route> */}
 
 
       {/* Rota anterior : <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } /> */}
