@@ -33,8 +33,9 @@ const handleLoginSubmit = (e) => {
     .then((response) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
+      console.log(authToken)
       authenticateUser(); 
-      // navigate('/profile');
+      
     })
     .catch((error) => {
       const errorDescription = error.response.data.message;

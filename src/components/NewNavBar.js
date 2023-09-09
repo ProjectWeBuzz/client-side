@@ -28,7 +28,7 @@ function NewProfile() {
 
                 {isLoggedIn ? (
                     <>
-                    <Nav.Link href="/profile">Profile</Nav.Link>
+                    <Nav.Link href={`/profile/${user.username}`}>Profile</Nav.Link>
                     <Nav.Link href="/projects">The Hive</Nav.Link>
                     <Nav.Link onClick={logOutUser}>Logout</Nav.Link>
                     <span>{user && user.username}</span> 

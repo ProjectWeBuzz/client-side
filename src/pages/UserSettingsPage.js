@@ -81,11 +81,13 @@ const navigate = useNavigate();
   const handleFormSubmit = (e) => {                     
     e.preventDefault();
     const requestBody = { newEmail, newPassword, newDescription, newPhoto };
-    console.log(user)
+    const storedToken = localStorage.getItem("authToken")
+
     axios
-    .post(`${process.env.REACT_APP_API_URL}/profile/update-profile/${user.username}`, requestBody, { new: true })
+    .post(`${process.env.REACT_APP_API_URL}/profile/update-profile/${user.username}`, requestBody,
+    { headers: { Authorization: `Bearer ${storedToken}`} } )
     .then((response) => {
-      
+      console.log(response)
     });
 };
 
