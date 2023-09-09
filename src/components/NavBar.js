@@ -5,11 +5,13 @@ import { AuthContext } from "../context/auth.context";
 import UserProfile from '../pages/UserProfilePage';
 
 
+
 const NavBar = () => {
 
     const { isLoggedIn, user, logOutUser  } = useContext(AuthContext);
 
   return (
+
     <nav className="navbar">
       <div className="navbar-logo">Logo</div>
 

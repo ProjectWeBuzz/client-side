@@ -1,114 +1,142 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/auth.context"; // Import your AuthContext here
+// import { AuthContext } from "../context/auth.context"; // Import your AuthContext here
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+
 
 // import {useNavigate} from "react-router-dom"
 
 
-const API_URL = "http://localhost:5005";
  
 function CreateProject() {
 
-  const navigate = useNavigate();
-
-    const { storeToken } = useContext(AuthContext); // Access the storeToken function from your AuthContext
+    // const { storeToken } = useContext(AuthContext); // Access the storeToken function from your AuthContext
 
   const [title, setTitle] = useState("");
 //       const [owner, setOwner] = useState("");
   const [description, setDescription] = useState("");
-//   const [images, setImages] = useState(null);
-  const [tags, setTags] = useState(["tag1", "tag2"]);
-  const [sociallinksproject, setSociallinksproject] = useState(["link1", "link2"]);
+  const [images, setImages] = useState({});
+  const [tags, setTags] = useState([]);
+  const [sociallinksproject, setSociallinksproject] = useState([]);
+  const [newLink, setNewLink] = useState("");
   const [creationdate, setCreationdate] = useState("");
 // //   const [collabs, setCollabs] = useState([""]);
   const [IsPrivate, setIsPrivate] = useState(true);
 
+  const navigate = useNavigate();
 
-const tagLimit = tags.length >= 5;
+const maxTags = 5;
+
+const handleTagChange = (selectedOptions) => {
+  const selectedTags = selectedOptions.map((option) => ({
+    value: option.value,
+    label: option.label,
+  }));
+
+  // Limit the number of selected tags
+  if (selectedTags.length <= maxTags) {
+    setTags(selectedTags);
+  }
+};
+
+// const addTag = () => {
+//   if (tags.length < maxTags && tags !== "") { // Check if the limit is not reached and a tag is selected
+//     setTags([...tags, tags]); // Add the selected tag to the tags array
+//     setTags(""); // Clear the selected tag
+//   }
+// };
+
+// const removeTag = (tagToRemove) => {
+//   const updatedTags = tags.filter((tag) => tag !== tagToRemove);
+//   setTags(updatedTags);
+// };
+
+
+const availableTags = [
+  { value: "Tech", label: "Tech" },
+  { value: "Frontend", label: "Frontend" },
+  { value: "Backend", label: "Backend" },
+  { value: "Paintings", label: "Paintings" },
+  { value: "a", label: "a" },
+  { value: "b", label: "b" },
+  { value: "c", label: "c" },
+  { value: "d", label: "d" },
+];
+
+
 
 const handleCheckboxChange = (e) => {
     setIsPrivate(e.target.checked);
   };
 
-//   const navigate = useNavigate();
- 
-//   add an onChange event to each input element and create a handler function for each input
-
-//   const handleTitleInput = e => setTitle(e.target.value);
-//   const handleDescriptionInput = e => setDescription(e.target.value);
-//   const handleImagesInput = e => setImages(e.target.value);
-//   const handletagsInput = e => setTags(e.target.checked);
-//   const handleMediaInput = e => setMedia(e.target.value);
-//   const handleSocialLinksProjectInput = e => setSociallinksproject(e.target.value);
-//   const handleCreationDateInput = e => setCreationdate(e.target.checked);
+const handleFileChange = (e) => {
+  setImages(e.target.files[0]);
+};
 
 
+
+
+const addLink = () => {
+  if (newLink.trim() !== "") {
+    setSociallinksproject([...sociallinksproject, newLink]);
+    setNewLink(""); // Clear the input field
+  }
+};
+
+const removeLink = (indexToRemove) => {
+  const updatedLinks = sociallinksproject.filter((_, index) => index !== indexToRemove);
+  setSociallinksproject(updatedLinks);
+};
 
 
 // Prevent default
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newProject = {title:title, description:description, tags:tags, sociallinksproject:sociallinksproject, creationdate:creationdate, IsPrivate:IsPrivate}
+
+    const newProject = {
+      title, 
+      description, 
+      tags, 
+      images, 
+      sociallinksproject, 
+      creationdate, 
+      IsPrivate,
+    };
+
+    try {
+      console.log(images);
+      const formData = new FormData();
+      formData.append("file", images); // Use "file" as the key
+
+      const storedToken = localStorage.getItem("authToken");
+
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/projects`, {formData}, {
+              headers:{
+                  Authorization: `Bearer ${storedToken}`,
+              },
+          });
+
+    } catch (error) {
+      console.error('Error uploading image or creating project:', error);
+  }
+
     
     console.log("Submitted: ", newProject);
-  
 
-    // if (!title || !description) {
-    //     alert("Title and description are required.");
-    //     return;
-    //   }
-    
-
-    // const formData = new FormData(); // Create a FormData object to send files
-
-    // Append the selected file(s) to the FormData
-    // if (images) {
-    //   for (let i = 0; i < images.length; i++) {
-    //     formData.append("images", images[i]);
-    //   }
-    // }
-
-    // formData.append("title", title);
-    // formData.append("description", description);
-    // formData.append("tags", tags);
-    // formData.append("sociallinksproject", sociallinksproject);
-    // formData.append("creationdate", creationdate);
-    // formData.append("IsPrivate", IsPrivate);
-
-
-    const storedToken = localStorage.getItem("authToken");
-
-
-    axios
-        .post(`${API_URL}/api/projects`, newProject, {
-            headers:{
-                Authorization: `Bearer ${storedToken}`
-            },
-        })
-        .then(() => {
 
             setTitle("");
             setDescription("");
-            // setImages(null);
+            setImages(null);
             setTags([]);
             setSociallinksproject([]);
             setCreationdate("");
             setIsPrivate(true);
 
             navigate('/projects');
-
-        })
-        .catch((error) => console.log(error));
-};
-
-
-//   const handleImagesSubmit = (e) => {
-//     const files = e.target.files;
-//     setImages(files);
-//   };
+  }
 
 
  
@@ -118,7 +146,8 @@ const handleCheckboxChange = (e) => {
  
       <form onSubmit={handleSubmit}>
 
-        <label>Title: </label>
+        <label>Title</label>
+        <br></br>
         <input 
             type="text" 
             name="title" 
@@ -126,6 +155,8 @@ const handleCheckboxChange = (e) => {
             onChange={(e) => setTitle(e.target.value)}
         />
         <br></br>
+        <br></br>
+
         {/* The "owner" is automaticcally assocciated to the id of the user/creator  */}
 
         {/* <label>Owner: </label>
@@ -135,7 +166,8 @@ const handleCheckboxChange = (e) => {
             value={owner} 
         /> */}
   
-        <label>Description: </label>
+        <label>Description</label>
+        <br></br>
         <textarea 
             name="description" 
             value={description} 
@@ -143,36 +175,59 @@ const handleCheckboxChange = (e) => {
         />
         
         <br></br>
-
-        {/* <label>Images: </label>
-        <input 
-            type="file" 
-            name="images"
-            multiple
-            onChange={handleImagesSubmit}
-        /> */}
-
         <br></br>
 
-        <label>Tags (max.5): </label>
+        {/* Images */}
+        <label></label>
+        <br></br>
         <input 
-            type="text" 
-            name="tags" 
-            checked={tags} 
-            onChange={(e) => setTags(e.target.value)}
-            disabled={tagLimit}
+            type="file"
+            name="images"
+            accept="image/*"
+            onChange={handleFileChange}
         />
 
+        <br></br>
+        <br></br>
 
+        {/* Tags */}
+        <label></label>
+        <Select
+          isMulti
+          options={availableTags}
+          value={tags}
+          onChange={handleTagChange}
+          placeholder="Select tags..."
+          maxMenuHeight={150} // Adjust the height as needed
+          isDisabled={false}
+        />
+
+        <br></br>
         <br></br>   
+
+        {/* Links */}
         
-        <label>Related Links: </label>
-        <input 
-            type="text" 
-            name="sociallinksproject" 
-            checked={sociallinksproject} 
-            onChange={(e) => setSociallinksproject(e.target.value)}
+        <label></label>
+        <input
+          type="text"
+          placeholder="Add related link"
+          value={newLink}
+          onChange={(e) => setNewLink(e.target.value)}
         />
+
+        <button type="button" onClick={addLink}>Add Link</button>
+
+        <br></br>
+        <br></br>
+
+        {sociallinksproject.map((link, index) => (
+          <div key={index}>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {link}
+            </a>
+            <button onClick={() => removeLink(index)}>Remove</button>
+          </div>
+        ))}
 
         <br></br>
 
@@ -195,6 +250,8 @@ const handleCheckboxChange = (e) => {
             checked={} 
         /> */}
 
+        <br></br>
+
         <label>Private: </label>
         <input 
             type="checkbox" // Use "checkbox" for boolean values
@@ -212,7 +269,9 @@ const handleCheckboxChange = (e) => {
 
     </div>
   );
+  
 }
+
 
  
 export default CreateProject;
