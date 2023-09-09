@@ -4,13 +4,12 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
 
-
-
 const NavBar = () => {
 
     const { isLoggedIn, user, logOutUser  } = useContext(AuthContext);
 
   return (
+
     <nav className="navbar">
       <div className="navbar-logo">Logo</div>
 

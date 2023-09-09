@@ -1,8 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/auth.context"; // Import your AuthContext here
+// import { AuthContext } from "../context/auth.context"; // Import your AuthContext here
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+
 
 // import {useNavigate} from "react-router-dom"
 
@@ -10,7 +11,7 @@ import Select from "react-select";
  
 function CreateProject() {
 
-    const { storeToken } = useContext(AuthContext); // Access the storeToken function from your AuthContext
+    // const { storeToken } = useContext(AuthContext); // Access the storeToken function from your AuthContext
 
   const [title, setTitle] = useState("");
 //       const [owner, setOwner] = useState("");
@@ -23,6 +24,7 @@ function CreateProject() {
 // //   const [collabs, setCollabs] = useState([""]);
   const [IsPrivate, setIsPrivate] = useState(true);
 
+  const navigate = useNavigate();
 
 const maxTags = 5;
 
@@ -62,7 +64,7 @@ const availableTags = [
   { value: "d", label: "d" },
 ];
 
-const navigate = useNavigate();
+
 
 const handleCheckboxChange = (e) => {
     setIsPrivate(e.target.checked);
@@ -119,7 +121,7 @@ const handleSubmit = async (e) => {
 
     } catch (error) {
       console.error('Error uploading image or creating project:', error);
-    }
+  }
 
     
     console.log("Submitted: ", newProject);
