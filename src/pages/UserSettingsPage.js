@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate} from "react-router-dom";
 import { AuthContext } from '../context/auth.context'
 
 
 const UserSettings = () => {
   const { user } = useContext( AuthContext ) ;
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  const [newPhoto, setNewPhoto] = useState(null);
+  const [email, setNewEmail] = useState('');
+  const [password, setNewPassword] = useState('');
+  const [description, setNewDescription] = useState('');
+  const [photo, setNewPhoto] = useState(null);
 
 //   const handleEmailChange = (e) => {
 //     setNewEmail(e.target.value);
@@ -80,8 +80,8 @@ const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {                     
     e.preventDefault();
-    const requestBody = { newEmail, newPassword, newDescription, newPhoto };
-    const storedToken = localStorage.getItem("authToken")
+    const requestBody = { email, password, description, photo };
+    const storedToken = localStorage.getItem("authToken");
 
     axios
     .post(`${process.env.REACT_APP_API_URL}/profile/update-profile/${user.username}`, requestBody,
@@ -89,6 +89,7 @@ const navigate = useNavigate();
     .then((response) => {
       console.log(response)
     });
+    
 };
 
   return (
@@ -103,7 +104,7 @@ const navigate = useNavigate();
             type="email"
             className="form-control"
             id="email"
-            value={newEmail}
+            value={email}
             onChange={(e) => setNewEmail(e.target.value)}
           />
         </div>
@@ -113,7 +114,7 @@ const navigate = useNavigate();
             type="password"
             className="form-control"
             id="password"
-            value={newPassword}
+            value={password}
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>
@@ -123,7 +124,7 @@ const navigate = useNavigate();
             className="form-control"
             id="description"
             rows="4"
-            value={newDescription}
+            value={description}
             onChange={(e) => setNewDescription(e.target.value)}
           ></textarea>
         </div>
@@ -134,11 +135,11 @@ const navigate = useNavigate();
             className="form-control-file"
             id="photo"
             accept="image/*"
-            onChange={(e) => setNewPhoto(e.target.value)}
+            onChange={(e) => setNewPhoto(e.target.files[0])}
           />
         </div>
         
-        <button type="button" className="btn btn-primary" onClick={handleFormSubmit}>
+        <button type="submit" className="btn btn-primary" onClick={handleFormSubmit}>
           Save
         </button>
       </form>
