@@ -46,7 +46,7 @@ function ProjectDetails () {
             <p>Tags: {project.tags}</p>
             <p>Social Links: {project.sociallinksproject}</p>
             <p>Creation Date: {project.creationdate}</p>
-            <p>Private: {project.IsPrivate ? 'Yes' : 'No'}</p>
+            <p>Private: {project.private ? 'Yes' : 'No'}</p>
 
             <br></br>
             <br></br>
