@@ -7,19 +7,7 @@ const UserProfile = () => {
   const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
 
   useEffect(() => {
-    // const fetchUserProfile = async () => {
-    //   try {
-    //     const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/profile/${user.username}`, 
-    //     { headers: { Authorization: `Bearer ${storedToken}`} } );
-    //     setUser(response.data);
-    //   } catch (error) {
-    //     console.error("Error fetching user data:", error);
-    //   }
-    // };
 
-    // if (isLoggedIn) {
-    //   fetchUserProfile();
-    // }
   }, [isLoggedIn, setUser, user.username, user]);
 
   return (
@@ -29,7 +17,7 @@ const UserProfile = () => {
           <div className="col-md-6 col-lg-4 text-center">
             <div className="text-center">
               <img
-                src={user.hoto || "/avatar-icon-png-26.jpg"}
+                src={user.photo || "/avatar-icon-png-26.jpg"}
                 alt="User's Photo"
                 className="img-fluid rounded-circle profile-photo"
               />
@@ -53,7 +41,7 @@ const UserProfile = () => {
           <div className="col-md-6 col-lg-4 text-center">
             <Link to="/projects" className="btn btn-primary btn-block mb-2">Project Hive</Link><br />
             <Link to="/colabs" className="btn btn-primary btn-block mb-2">Colabs</Link><br />
-            <Link to="/inbox" className="btn btn-primary btn-block mb-2">Messages</Link><br />
+            <Link to="/messages/:username" className="btn btn-primary btn-block mb-2">Messages</Link><br />
             <button className="btn btn-danger btn-block" onClick={logOutUser}>Log Out</button><br />
           </div>
         </div>

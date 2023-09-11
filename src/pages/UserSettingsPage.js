@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate} from "react-router-dom";
 import { AuthContext } from '../context/auth.context'
 
-
 const UserSettings = () => {
   const { user } = useContext( AuthContext ) ;
   const [email, setNewEmail] = useState('');

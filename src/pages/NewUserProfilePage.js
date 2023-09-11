@@ -15,88 +15,86 @@ import Row from 'react-bootstrap/Row';
 
 
 
-function KitchenSinkExample() {
+function DisplayProfile() {
+  const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
+  
+  useEffect(() => {
 
-    const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  }, [isLoggedIn, setUser, user.username, user]);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const navigateToProjectHive = () => {
-        navigate('/project-hive');
+  const navigateToProjectHive = () => {
+        navigate('/projects');
     };
 
     const navigateToMyProjects = () => {
-        navigate('/projects');
+        navigate('/myProjects');
     };
     
     const navigateToMyColabs = () => {
         navigate('/colabs');
     };
 
-    const navigateToMessageMe = () => {
-        navigate('/message');
-    };
-
     const navigateToInbox = () => {
-        navigate('/inbox');
+        navigate('/messages/:username');
     };
     
+    const navigateToUpdateProfile = () => {
+        navigate("/profile/update-profile/:username");
+    }
 
   return (
    
     <div>
+  
       {isLoggedIn ? (
         <>
-        <Card style={{ width: '30rem', display:"flex", alignItems: "center"  }}>
-            {user && user.photo ? (
-            <Card.Img variant="top" src={user.photo} alt="userphoto" />
-            ) : (
-            <div className="placeholder-photo rounded-circle"></div>
-            )}
-            <Card.Body>
-                <Container>
-                    <Row>
-                        <Col xs={6} md={4}>
-                        <Image src="holder.js/171x180" roundedCircle />
-                        </Col>
-                    </Row>
-                </Container>
-                <Card.Title>{user ? user.username : 'Username'}</Card.Title>
-                <Card.Text>Username</Card.Text>
-                <Card.Text>Description of the user</Card.Text>
-                <Card.Text>
-                {user ? user.description : 'User description goes here.'}
-                </Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-                <Button onClick={navigateToProjectHive} variant="dark">Projects Hive</Button>
-                <br></br>
-                <Button onClick={navigateToMyProjects} variant="dark">My Projects</Button>
-                <br></br>
-                <Button onClick={navigateToMyColabs} variant="dark">Colabs</Button>
-                <br></br>
-                <Button onClick={navigateToMessageMe} variant="dark">Message Me</Button>
-                <br></br>
-                <Button onClick={navigateToInbox} variant="dark">Inbox</Button>
-            </ListGroup>
-        </Card>
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-4">
-            <div className="text-center">
-              
-              <h1 className="mt-3">{user ? user.username : 'Username'}</h1>
-              <p>{user ? user.description : 'User description goes here.'}</p>
-            </div>
-          </div>
-        </div>
+        <Card style={{ width: '30rem' }}>
+  <div className="d-flex justify-content-center align-items-center">
+    {user && user.photo ? (
+      <Card.Img variant="top" align="center" src={user.photo} alt="userphoto" />
+    ) : (
+      <div className="placeholder-photo rounded-circle"></div>
+    )}
+  </div>
+  <Card.Body>
+    <Container>
+      <Row>
+        <Col xs={12} md={3} className="d-flex justify-content-center">
+          <Image src={user.photo || "/avatar-icon-png-26.jpg"} roundedCircle style={{ width: '50%', height: 'auto' }} />
+        </Col>
+      </Row>
+    </Container>
+    <br />
+    <Card.Title className="text-center" style={{ fontSize: '24px' }}>{user ? user.username : 'Username'}</Card.Title>
+    <br />
+    <Card.Text>
+      {user ? user.description : 'User description goes here.'}
+    </Card.Text>
+  </Card.Body>
+
+  <ListGroup className="list-group-flush">
+    <Button onClick={navigateToProjectHive} variant="dark">Projects Hive</Button>
+    <br />
+    <Button onClick={navigateToMyProjects} variant="dark">My Projects</Button>
+    <br />
+    <Button onClick={navigateToMyColabs} variant="dark">Colabs</Button>
+    <br />
+    <Button onClick={navigateToInbox} variant="dark">Inbox</Button>
+    <br />
+    <Button onClick={navigateToUpdateProfile} variant="dark">Settings</Button>
+    <br />
+    
+  </ListGroup>
+</Card>
+        
         </>
       ) : (
         <p>Please log in to view your profile.</p>
       )}
-
-        
     </div>
   );
 };
 
-export default KitchenSinkExample;
+export default DisplayProfile;

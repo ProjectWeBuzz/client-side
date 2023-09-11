@@ -1,9 +1,6 @@
-
 import React from 'react';
 import { useContext } from "react"; 
 import { AuthContext } from "../context/auth.context";
-
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -31,7 +28,7 @@ function NewProfile() {
                     <Nav.Link href={`/profile/${user.username}`}>Profile</Nav.Link>
                     <Nav.Link href="/projects">The Hive</Nav.Link>
                     <Nav.Link onClick={logOutUser}>Logout</Nav.Link>
-                    <span>{user && user.username}</span> 
+                    
                     </>
                     ) : (
 
