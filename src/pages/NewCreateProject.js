@@ -88,7 +88,7 @@ const handleSubmit = async (e) => {
     await axios.post(`${process.env.REACT_APP_API_URL}/api/projects`, formData, {
       headers: {
         Authorization: `Bearer ${storedToken}`,
-        // "Content-Type": "multipart/form-data", // Set the content type for FormData
+        "Content-Type": "multipart/form-data", // Set the content type for FormData
       },
     });
 

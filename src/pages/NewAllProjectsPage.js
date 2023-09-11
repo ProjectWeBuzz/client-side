@@ -36,7 +36,7 @@ function AllProjects() {
 
       useEffect(() => {
         getAllProjects();
-      }, []);
+      });
 
       const filterProjectsByTags = (project) => {
         if (!searchTags) {
@@ -88,11 +88,15 @@ function AllProjects() {
                 .map((project) => (
                 <Carousel.Item key={project._id}>
                     <Link to={`/projects/${project._id}`} style={{color:"black", textDecoration: 'none' }}>
+                    {project.images.map((imageUrl, index) => (
                     <img
                     className="d-block w-100"
-                    src={project.images}
-                    alt={project.title}
+                    src={project.images[0]}
+                    alt={"Imagehere"}
+                    key={index}
+                    style={{ maxWidth: '100%', height: 'auto' }}
                     />
+                    ))}
                     <Carousel.Caption>
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>

@@ -48,19 +48,33 @@ function NewProjectDetails() {
 
       useEffect(()=> {
         getProject();
-      }, [] );
+      });
 
   return (
 
 <>
       <Carousel>
-          <Carousel.Item key={project._id}>
-                    <img
-                    className="d-block w-100"
-                    src={project.images}
-                    alt={project.title}
-                    />
+        {project && project.images ? (
+          project.images.map((imageUrl, index) => (
+            <Carousel.Item key={index}>
+                      <img
+                      className="d-block w-100"
+                      src={imageUrl}
+                      alt={project.title}
+                      style={{ maxWidth: '100%', height: 'auto' }}
+                      />
+            </Carousel.Item>
+        ))
+      ) : (
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="placeholder-image-url.jpg" // Provide a placeholder image URL or handle this case as needed
+            alt="Placeholder"
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
           </Carousel.Item>
+        )}
       </Carousel>
 
 
