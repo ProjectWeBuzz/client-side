@@ -78,7 +78,10 @@ const handleSubmit = async (e) => {
     formData.append("tags", JSON.stringify(tags.map(tag => tag.value)));
     formData.append("creationdate", creationdate);
     formData.append("isPrivate", isPrivate);
-    formData.append("images", images);
+
+    for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
 
   try {
     const storedToken = localStorage.getItem("authToken");
@@ -102,7 +105,7 @@ const handleSubmit = async (e) => {
     // Clear form fields and state
     setTitle("");
     setDescription("");
-    setImages({});
+    setImages([]);
     setTags([]);
     setSociallinksproject([]);
     setCreationdate("");
@@ -152,7 +155,9 @@ const handleSubmit = async (e) => {
             type="file"
             name="images"
             accept="image/*"
-            onChange={(e) =>setImages(e.target.files[0])} />
+            onChange={(e) =>setImages(e.target.files)} 
+            multiple
+            />
       </Form.Group>
     <br></br>
       <Form.Group as={Col} controlId="formGridTags">

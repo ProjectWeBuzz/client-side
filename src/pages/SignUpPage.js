@@ -23,9 +23,9 @@ function SignUp() {
    
     const requestBody = { email: user.email, password: user.password, username: user.username };
  
-    axios.post(`${API_URL}/auth/signup`, requestBody)
+    axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, requestBody)
       .then((response) => {
-        navigate('/profile');
+        navigate('/profile/:username');
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -33,7 +33,6 @@ function SignUp() {
       })
   };
 
- 
   return (
     <div className="signUpContainer">
       <form onSubmit={handleSignupSubmit} className="signUpForm">

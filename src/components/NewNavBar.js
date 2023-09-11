@@ -15,7 +15,7 @@ function NewProfile() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/projects">Logo WeHive</Navbar.Brand>
+        <Navbar.Brand href="/">Logo WeHive</Navbar.Brand>
 
         {/* <Navbar.Brand href="/profile">Welcome, {user.username}</Navbar.Brand> */}
         {/* To display the name of the user that is logged in, we need to implement here the logic of the login,

@@ -39,7 +39,7 @@ function ProjectDetails () {
             <h2>Project Details</h2>
             <br></br>
             <br></br>
-            {/* <img style={{width:"30px"}} src={project.image_url} alt={project.title} /> */}
+            <img style={{width:"30px"}} src={project.image_url} alt={project.title} />
             <h3>{project.title}</h3>
             <br></br>
             <p>Description: {project.description}</p>
