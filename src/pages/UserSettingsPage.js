@@ -10,72 +10,7 @@ const UserSettings = () => {
   const [description, setNewDescription] = useState('');
   const [photo, setNewPhoto] = useState(null);
 
-//   const handleEmailChange = (e) => {
-//     setNewEmail(e.target.value);
-//   };
-
-//   const handlePasswordChange = (e) => {
-//     setNewPassword(e.target.value);
-//   };
-
-//   const handleDescriptionChange = (e) => {
-//     setNewDescription(e.target.value);
-//   };
-
-//   const handlePhotoChange = (e) => {
-//     const file = e.target.files[0];
-//     setNewPhoto(file);
-//   };
-
-//   const handleSaveClick = () => {
-
-
-//     const formData = new FormData();
-//     formData.append('email', newEmail);
-//     formData.append('password', newPassword);
-//     formData.append('description', newDescription);
-//     if (newPhoto) {
-//       formData.append('photo', newPhoto);
-//     }
-
-
-//     fetch("/api/update-profile", {
-//       method: 'PUT',
-//       body: formData,
-//     })
-//       .then((response) => {
-//         if (response.ok) {
-         
-//           console.log('User information updated successfully.');
-//         } else {
-         
-//           console.error('Error updating user information.');
-//         }
-//       })
-//       .catch((error) => {
-//         console.error('Error updating user information:', error);
-//       });
-//   };
-
-const navigate = useNavigate();
-
-// useEffect(() => {     
-//   console.log(user)                             
-//     axios
-//       .post(`${process.env.REACT_APP_API_URL}/api/update-profile/${user.username}`)
-//       .then((response) => {
-      
-//         const oneUpdate = response.data;
-//         setNewEmail(oneUpdate.newEmailemail);
-//         setNewPassword(oneUpdate.newPassword);
-//         setNewDescription(oneUpdate.newDescription);
-//         setNewPhoto(oneUpdate.newPhoto);
-
-//       })
-//       .catch((error) => console.log(error));
-  
-//   }, [user]);
-
+  const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {                     
     e.preventDefault();
@@ -94,7 +29,6 @@ const navigate = useNavigate();
   return (
     <div className="container">
 
-    
       <h1>Edit Profile</h1>
       <form onSubmit={handleFormSubmit}>
         <div className="form-group">
@@ -135,10 +69,11 @@ const navigate = useNavigate();
             id="photo"
             accept="image/*"
             onChange={(e) => setNewPhoto(e.target.files[0])}
-          />
+          /> 
+          
         </div>
         
-        <button type="submit" className="btn btn-primary" onClick={handleFormSubmit}>
+        <button type="submit" className="btn btn-primary">
           Save
         </button>
       </form>

@@ -38,13 +38,13 @@ function App() {
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
 
       <Route path="/profile/:username" element={<IsPrivate><NewUserProfile /> </IsPrivate>} />
-      <Route path="/profile/update-profile" element={<IsPrivate><UserSettings /></IsPrivate>} />
-     
+      <Route path="/profile/update-profile/:username" element={<IsPrivate><UserSettings /></IsPrivate>} />
+      <Route path="/messages/:username" element={ <IsPrivate><Inbox /></IsPrivate> } /> 
 
       {/* <Route path="/create-project" element={<IsPrivate> <CreateProject /> </IsPrivate> } />  */}
       <Route path="/projects" element={<IsPrivate><AllProjectsPage /> </IsPrivate>} /> 
-      <Route path="/projects/:projectId" element={<IsPrivate><ProjectDetails/> </IsPrivate>}>  </Route>
-      <Route path="/projects/edit/:projectId" element={<IsPrivate><ProjectEdit/> </IsPrivate>}> </Route>
+      <Route path="/projects/:projectId" element={<IsPrivate><ProjectDetails/> </IsPrivate>} />  
+      <Route path="/projects/edit/:projectId" element={<IsPrivate><ProjectEdit/> </IsPrivate>} /> 
        {/* <Route path="/create-project" element={ <CreateProject /> } />  */}
       <Route path="/create-project" element={ <NewCreateProject /> } /> 
       <Route path="/projects" element={ <AllProjectsPage /> } /> 
@@ -53,8 +53,6 @@ function App() {
       {/* Rota anterior : <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } /> */}
 
       
-      <Route path="/messages/:username" element={ <IsPrivate><Inbox /></IsPrivate> } /> 
-      <Route path="/messages/detail" component={ <IsPrivate><MessageDetail /></IsPrivate> } />
 
     </Routes>
  

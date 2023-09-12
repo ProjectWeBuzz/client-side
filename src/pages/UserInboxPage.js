@@ -5,27 +5,38 @@ import { AuthContext } from '../context/auth.context';
 import { Card, Form, Button } from 'react-bootstrap';
 
 const Inbox = () => {
-  const { user } = useContext(AuthContext);
+  const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [newMessage, setNewMessage] = useState({ recipient: '', subject: '', content: '' });
-
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
+  
   useEffect(() => {
     // Load messages from local storage 
     const storedMessages = JSON.parse(localStorage.getItem('userMessages')) || [];
     setMessages(storedMessages);
-  }, []);
+    fetchMessages();
+  }, [isLoggedIn, user]);
 
   const saveMessagesToLocalStorage = (messages) => {
     // Save messages to local storage
     localStorage.setItem('userMessages', JSON.stringify(messages));
   };
 
+  const showConfirmationModal = (message) => {
+    setConfirmationMessage(message);
+    setShowConfirmation(true);
+  };
 
   const fetchMessages = () => {
+    const storedToken = localStorage.getItem('authToken');
+   
     axios
-      .get(`/api/messages/${user.username}`)
-      .then((response) => {
+    .get(`${process.env.REACT_APP_API_URL}/api/messages/${user.username}`,
+    { headers: { Authorization: `Bearer ${storedToken}`} } )
+
+    .then((response) => {
         const fetchedMessages = response.data;
         setMessages(fetchedMessages);
         saveMessagesToLocalStorage(fetchedMessages);
@@ -36,14 +47,19 @@ const Inbox = () => {
   };
 
   const handleSendMessage = () => {
+    const username = user.username;
     const newMessageWithId = { ...newMessage, id: messages.length + 1, sender: user.username };
     const updatedMessages = [...messages, newMessageWithId];
     setMessages(updatedMessages);
     saveMessagesToLocalStorage(updatedMessages);
-
+  
     // Reset the new message fields
     setNewMessage({ recipient: '', subject: '', content: '' });
+  
+    // Show the confirmation modal with the success message
+    showConfirmationModal('Message sent successfully!');
   };
+  
 
   const handleSelectMessage = (message) => {
     setSelectedMessage(message);
@@ -125,7 +141,7 @@ const Inbox = () => {
       <h3> New Message</h3>
       </div>
       <Card>
-        {/* <Card.Header> </Card.Header> */}
+       
         <Card.Body>
           <Form>
             <Form.Group>
@@ -153,13 +169,18 @@ const Inbox = () => {
                 onChange={(e) => setNewMessage({ ...newMessage, content: e.target.value })}
               />
             </Form.Group>
-          </Form>
-          <Button variant="primary" onClick={handleSendMessage}>
+         </Form><br></br>
+            <Button 
+                variant="primary"
+                onClick={handleSendMessage}
+                style={{ marginRight: '1cm', backgroundColor: 'white' }}
+                className="text-dark"
+                >
               Send
             </Button>
         </Card.Body>
       </Card>
-
+      
       
     </div>
   );

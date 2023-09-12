@@ -16,11 +16,12 @@ import Row from 'react-bootstrap/Row';
 
 
 function DisplayProfile() {
+  
   const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
   
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [isLoggedIn, setUser, user.username, user]);
+  // }, []);
 
   const navigate = useNavigate();
 
@@ -37,13 +38,13 @@ function DisplayProfile() {
     };
 
     const navigateToInbox = () => {
-        navigate('/messages/:username');
+        navigate(`/messages/${user.username}`)
     };
     
     const navigateToUpdateProfile = () => {
-        navigate("/profile/update-profile/:username");
+        navigate(`/profile/update-profile/${user.username}`);
     }
-
+    
   return (
    
     <div>
