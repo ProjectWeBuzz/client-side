@@ -22,7 +22,6 @@ import NewCreateProject from "./pages/NewCreateProject";
 import NewAllProjectsPage from "./pages/NewAllProjectsPage";
 import NewProjectDetails from "./pages/NewProjectDetails";
 import NewEditProject from "./pages/NewEditProject";
-import NewLogin from "./pages/NewLogin";
 import MyProjectsPage from "./pages/MyProjectsPage";
 
 function App() {
@@ -35,8 +34,7 @@ function App() {
       
       <Route path="/" element={<HomePage />} /> 
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
-      <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
-      {/* <Route path="/login"  element={<IsAnon><NewLogin /></IsAnon>} /> */}
+      <Route path="/login"  element={<IsAnon><Login/></IsAnon>} />
       <Route path="/myprojects" element={<IsPrivate><MyProjectsPage/></IsPrivate>}/>
 
 
