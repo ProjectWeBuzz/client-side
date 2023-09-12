@@ -15,7 +15,6 @@ import {Link} from "react-router-dom"
 const API_URL = "http://localhost:5005";
 
 
-
 function AllProjects() {
 
     const [projects, setProjects] = useState([]);
@@ -36,7 +35,7 @@ function AllProjects() {
 
       useEffect(() => {
         getAllProjects();
-      });
+      },[]);
 
       const filterProjectsByTags = (project) => {
         if (!searchTags) {
@@ -84,19 +83,18 @@ function AllProjects() {
     </Card>
             <Carousel>
             {projects
-                .filter(filterProjectsByTags) // Apply your filtering logic here
+                .filter((project) => filterProjectsByTags && project.isPrivate === false) // Apply your filtering logic here
                 .map((project) => (
                 <Carousel.Item key={project._id}>
                     <Link to={`/projects/${project._id}`} style={{color:"black", textDecoration: 'none' }}>
-                    {project.images.map((imageUrl, index) => (
+                    <div style={{ maxWidth: '100%', maxHeight:'500px', paddingTop: '4%', position: 'relative' }}>
                     <img
                     className="d-block w-100"
                     src={project.images[0]}
                     alt={"Imagehere"}
-                    key={index}
-                    style={{ maxWidth: '100%', height: 'auto' }}
+                    style={{ position: 'relative', width: '100%', height: '50%', objectFit: 'cover' }}
                     />
-                    ))}
+                    </div>
                     <Carousel.Caption>
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>

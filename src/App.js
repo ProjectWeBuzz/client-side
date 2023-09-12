@@ -22,7 +22,8 @@ import NewCreateProject from "./pages/NewCreateProject";
 import NewAllProjectsPage from "./pages/NewAllProjectsPage";
 import NewProjectDetails from "./pages/NewProjectDetails";
 import NewEditProject from "./pages/NewEditProject";
-import NewLogin from "./pages/NewLogin"
+import NewLogin from "./pages/NewLogin";
+import MyProjectsPage from "./pages/MyProjectsPage";
 
 function App() {
   return (
@@ -36,11 +37,11 @@ function App() {
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
       {/* <Route path="/login"  element={<IsAnon><NewLogin /></IsAnon>} /> */}
-
+      <Route path="/myprojects" element={<IsPrivate><MyProjectsPage/></IsPrivate>}/>
 
 
       {/* <Route path="/profile/" element={<IsPrivate><UserProfile /> </IsPrivate>} /> */}
-      <Route path="/profile/update-profile" element={<IsPrivate><UserSettings /></IsPrivate>} />
+      <Route path="/profile/update-profile"  />
       {/* <Route path="/colabs" element={<IsPrivate><Colabs/></IsPrivate>} /> */}
 
       {/* <Route path="/create-project" element={<IsPrivate> <CreateProject /> </IsPrivate> } />  */}
@@ -50,11 +51,11 @@ function App() {
       <Route path="/projects/edit/:projectId" element={<IsPrivate><NewEditProject/> </IsPrivate>}> </Route>
 
       {/* <Route path="/profile" element={<IsPrivate><UserProfile /> </IsPrivate>} /> */}
-      <Route path="/profile" element={<IsPrivate><NewUserProfilePage /> </IsPrivate>}/>
+      <Route path="/profile/:username" element={<IsPrivate><NewUserProfilePage /> </IsPrivate>}/>
       {/* <Route path="/colabs" element={<IsPrivate><Colabs/></IsPrivate>} /> */}
 
       {/* <Route path="/create-project" element={ <CreateProject /> } />  */}
-      <Route path="/create-project" element={ <NewCreateProject /> } /> 
+      <Route path="/create-project" element={ <NewCreateProject/> } /> 
 
       {/* <Route path="/projects" element={ <AllProjectsPage /> } />  */}
       

@@ -10,17 +10,38 @@ import {useNavigate} from 'react-router-dom';
 // import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 // import Image from 'react-bootstrap/Image';
-// import Row from 'react-bootstrap/Row';
+import Row from 'react-bootstrap/Row';
 
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
+const API_URL = "http://localhost:5005";
+const storedToken = localStorage.getItem("authToken");
 
 function NewUserProfilePage() {
 
     const { isLoggedIn, user, setUser, logOutUser } = useContext(AuthContext);
 
     const navigate = useNavigate();
+
+    const [projects, setProjects] = useState([]);
+
+    const getAllProjects = () => {
+
+      axios
+        .get(`${API_URL}/api/projects`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+        .then((response) => setProjects(response.data))
+        .catch((error) => console.log(error));
+    };
+
+    useEffect(() => {
+      getAllProjects();
+    }, []);
+
 
     const navigateToProjectHive = () => {
         navigate('/projects');
@@ -38,23 +59,27 @@ function NewUserProfilePage() {
     const navigateToEditProfile = () => {
       navigate('/profile/update-profile')
     }
+
+    const navigateToMyProjects = () => {
+      navigate('/myprojects')
+    }
     
   
-    useEffect(() => {
-      const fetchUserProfile = async () => {
-        try {
-          if (isLoggedIn && user.username) {
+    
+      useEffect(() => {
+        const fetchUserProfile = async () => {
+          try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
             setUser(response.data);
+          } catch (error) {
+            console.error("Error fetching user data:", error);
           }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
+        };
+    
+        if (isLoggedIn) {
+          fetchUserProfile();
         }
-      };
-    
-      fetchUserProfile();
-    
-    }, [isLoggedIn, setUser, user.username]);
+      }, [isLoggedIn, setUser, user.username]);
 
 
   return (
@@ -88,6 +113,8 @@ function NewUserProfilePage() {
                 <br></br>
                 <Button onClick={navigateToMyColabs} variant="dark">Colabs</Button>
                 <br></br>
+                <Button onClick={navigateToMyProjects} variant="dark">My Projects</Button>
+                <br></br>
                 <Button onClick={navigateToInbox} variant="dark">Messages</Button>
                 <br></br>
                 <Button onClick={logOutUser} variant="danger">Logout</Button>
@@ -95,11 +122,14 @@ function NewUserProfilePage() {
             </ListGroup>
         </Card>
 
+        <br></br>
+        <br></br>
+        
         </>
       ) : (
         <p>Please log in to view your profile.</p>
       )}
-
+      
     </div>
   );
 };

@@ -3,6 +3,7 @@ import axios from 'axios';
 import {useParams} from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Carousel from 'react-bootstrap/Carousel';
+import {Link} from "react-router-dom"
 
 import {useNavigate} from 'react-router-dom';
 
@@ -30,7 +31,6 @@ function NewProjectDetails() {
     }
 
    
-
     const getProject = () => {
         axios
           .get(`${API_URL}/api/projects/${projectId}`, {
@@ -48,11 +48,17 @@ function NewProjectDetails() {
 
       useEffect(()=> {
         getProject();
-      });
+      }, []);
+      
 
   return (
-
-<>
+    <>
+    {(!project || !project.title) ? ( // Add this conditional check here
+        <>
+        {navigate('/projects')}
+        </>
+      ) : (
+        <>
       <Carousel>
         {project && project.images ? (
           project.images.map((imageUrl, index) => (
@@ -85,7 +91,22 @@ function NewProjectDetails() {
         <Card.Text className="display-4 text-center" style={{textSizeAdjust:"30px"}}>
           {project.description}
         </Card.Text>
-        </Card.Body>
+        <Card.Text className="display-4 text-center" style={{ fontSize: "30px", textAlign: "center" }}>
+         {project.date ? new Date(project.date.replace(/-/g, '/')).toLocaleDateString("en-US", { day: 'numeric', month: 'long', year: 'numeric' }) : ''}
+        </Card.Text>
+        {project.tags.map((tag, index) => (
+        <Card.Text key={index} className="display-4 text-center" style={{textSizeAdjust:"30px"}}>
+          {tag}
+        </Card.Text>
+          ))}
+          {project.sociallinksproject.map((link, index) => (
+        <Card.Text key={index} className="display-4 text-center" style={{textSizeAdjust:"30px"}}>
+          <Link href={link} target="_blank" rel="noopener noreferrer">
+          {link}
+          </Link>
+        </Card.Text>
+          ))}
+      </Card.Body>
         <br></br>
         <br></br>
 
@@ -101,6 +122,8 @@ function NewProjectDetails() {
      
 
     </Card>
+    </>
+      )}
     </>
   );
 }
