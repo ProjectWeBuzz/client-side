@@ -4,6 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import React, { useContext } from 'react';
 import { AuthContext } from "../context/auth.context";
 import { Link } from 'react-router-dom';
+import {useParams} from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
@@ -21,12 +22,13 @@ const storedToken = localStorage.getItem("authToken");
 function MyProjectsPage() {
 
     const { user } = useContext(AuthContext);
+    const storedToken = localStorage.getItem("authToken");
+    const [projects, setProjects] = useState([]);
+
 
     console.log(user._id);
-    
-    const navigate = useNavigate();
-
-    const [projects, setProjects] = useState([]);
+    console.log(projects.owner);
+    console.log(projects);
 
     const getAllProjects = () => {
 
@@ -44,7 +46,7 @@ function MyProjectsPage() {
       getAllProjects();
     }, []);
 
-    
+
     return (
       
       <div>
@@ -55,9 +57,9 @@ function MyProjectsPage() {
       <br></br>
           <Row>
           {projects
-            .filter((project) => user._id === project.owner)
+            .filter((project) => (user._id === project.owner._id))
             .map((project) => (
-          <Card style={{width: 'auto', display:"flex", alignItems: "center", border:"none", paddingLeft:"50px"}}>
+          <Card key={project._id} style={{width: 'auto', display:"flex", alignItems: "center", border:"none", paddingLeft:"50px"}}>
             <Link to={`/projects/${project._id}`} style={{color:"black", textDecoration: 'none' }}>
               <Card.Img variant="top" src={project.images[0]} style={{width:'100px', height:"auto"}}/>
             </Link>
@@ -77,7 +79,10 @@ function MyProjectsPage() {
         <Button variant="dark"> <Link to="/create-project" style={{color:"white"}}>Add New Project</Link></Button>
 
       </div>
+      
     );
   };
   
+
+
   export default MyProjectsPage;

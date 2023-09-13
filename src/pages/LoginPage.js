@@ -31,6 +31,7 @@ const value = e.target.value;
 setUser(user => ({...user, [name]: value}))
 };
 
+
 const handleLoginSubmit = (e) => {
   e.preventDefault();
   const requestBody = {
@@ -38,12 +39,13 @@ const handleLoginSubmit = (e) => {
     password: user.password
   };
 
+
   axios.post(`${API_URL}/auth/login`, requestBody)
     .then((response) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
       authenticateUser(); 
-      // navigate('/profile');
+      navigate('/profile/:username');
     })
     .catch((error) => {
       const errorDescription = error.response.data.message;
