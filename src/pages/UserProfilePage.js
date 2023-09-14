@@ -8,6 +8,7 @@ const UserProfile = () => {
 
   useEffect(() => {
 
+
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
@@ -31,6 +32,7 @@ const UserProfile = () => {
     // if (isLoggedIn) {
     //   fetchUserProfile();
     // }
+
   }, [isLoggedIn, setUser, user.username, user]);
 
   return (
@@ -64,7 +66,7 @@ const UserProfile = () => {
           <div className="col-md-6 col-lg-4 text-center">
             <Link to="/projects" className="btn btn-primary btn-block mb-2">Project Hive</Link><br />
             <Link to="/colabs" className="btn btn-primary btn-block mb-2">Colabs</Link><br />
-            <Link to="/inbox" className="btn btn-primary btn-block mb-2">Messages</Link><br />
+            <Link to="/messages/:username" className="btn btn-primary btn-block mb-2">Messages</Link><br />
             <button className="btn btn-danger btn-block" onClick={logOutUser}>Log Out</button><br />
           </div>
         </div>

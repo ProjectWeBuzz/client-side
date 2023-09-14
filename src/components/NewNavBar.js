@@ -45,6 +45,7 @@ function NewProfile() {
                     <Nav.Link href={`/profile/${user.username}`}>Profile</Nav.Link>
                     <Nav.Link href="/projects">The Hive</Nav.Link>
                     <Nav.Link onClick={logOutUser}>Logout</Nav.Link>
+
                     <br></br>
                     <span style={{ flexGrow: 1, textAlign: 'center', paddingRight:"200px" }}>Welcome {user && user.username} !</span> 
                     </>

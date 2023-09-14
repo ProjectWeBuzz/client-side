@@ -1,34 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
- 
+import { AuthContext } from '../context/auth.context';
+
+
 const ComposeMessage = ({ onMessageSent }) => {
-  const [recipient, setRecipient] = useState('');
-  const [subject, setSubject] = useState('');
-  const [content, setContent] = useState('');
+  
+  const [message, setMessage] = useState({
+    recipient: '',
+    subject: '',
+    content: '',
+  });
+  const [sending, setSending] = useState(false);
+  const {user} = useContext(AuthContext);
 
   const handleSendMessage = async () => {
+    if (sending) return;
+    setSending(true)  
+
+    
     try {
-      await axios.post('/api/messages/send', { recipient, subject, content });
-      onMessageSent(); // Notify the parent component that a message has been sent
-      // Optionally, clear input fields or show a success message
+    
+      const storedToken = localStorage.getItem('authToken');
+
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/messages/${user.username}`, message, 
+      { headers: { Authorization: `Bearer ${storedToken}`} });
+      onMessageSent();
+      setMessage({ recipient: '', subject: '', content: '' });
+      // showConfirmationModal();
     } catch (error) {
       console.error(error);
+    } finally {
+      setSending(false);
     }
+  };
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMessage({ ...message, [name]: value });
   };
 
   return (
     <div className="compose-message">
       <h2>Compose New Message</h2>
-      <label>Sender:</label>
-      <input type="text" value={sender} onChange={(e) => setSender(e.target.value)} />
       <label>Recipient:</label>
-      <input type="text" value={recipient} onChange={(e) => setRecipient(e.target.value)} />
+      <input
+        type="text"
+        name="recipient"
+        value={message.recipient}
+        onChange={handleChange}
+      />
       <label>Subject:</label>
-      <input type="text" value={subject} onChange={(e) => setSubject(e.target.value)} />
+      <input
+        type="text"
+        name="subject"
+        value={message.subject}
+        onChange={handleChange}
+      />
       <label>Content:</label>
-      <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-      <button onClick={handleSendMessage}>Send</button>
+      <textarea
+        name="content"
+        value={message.content}
+        onChange={handleChange}
+      />
+      <button onClick={handleSendMessage} disabled={sending}>
+        {sending ? 'Sending...' : 'Send'}
+      </button>
+      <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
+        <Modal.Header closeButton>
+        <Modal.Title>Message Sent</Modal.Title>
+      </Modal.Header>
+        <Modal.Body>Your message was successfully sent.</Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={() => setShowConfirmation(false)}>
+        OK
+      </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
+    
   );
 };
 
