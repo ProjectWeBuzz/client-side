@@ -18,24 +18,25 @@ import axios from "axios";
 const API_URL = "http://localhost:5005";
 const storedToken = localStorage.getItem("authToken");
 
+
+
 function NewUserProfilePage() {
+  
+  const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
+  
+  const navigate = useNavigate();
 
-    const { isLoggedIn, user, setUser, logOutUser } = useContext(AuthContext);
-
-    const navigate = useNavigate();
 
 
-    const navigateToProjectHive = () => {
+  const navigateToProjectHive = () => {
         navigate('/projects');
     };
 
-    const navigateToMyColabs = () => {
-        navigate('/colabs');
-    };
-
-
+    const navigateToMyProjects = () => {
+        navigate('/myProjects');
+    
     const navigateToInbox = () => {
-        navigate('/inbox');
+        navigate(`/messages/${user.username}`)
     };
 
     const navigateToEditProfile = () => {
@@ -58,11 +59,11 @@ function NewUserProfilePage() {
           }
         };
     
-        if (isLoggedIn) {
-          fetchUserProfile();
-        }
-      }, [isLoggedIn, setUser, user.username]);
 
+    const navigateToUpdateProfile = () => {
+        navigate(`/profile/update-profile/${user.username}`);
+    }
+    
 
   return (
     
@@ -109,9 +110,11 @@ function NewUserProfilePage() {
       ) : (
         <p>Please log in to view your profile.</p>
       )}
-      
+
     </div>
   );
 };
 
+
 export default NewUserProfilePage;
+
