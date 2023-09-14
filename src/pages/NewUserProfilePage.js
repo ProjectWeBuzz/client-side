@@ -19,11 +19,13 @@ const API_URL = "http://localhost:5005";
 const storedToken = localStorage.getItem("authToken");
 
 
+
 function NewUserProfilePage() {
   
   const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
   
   const navigate = useNavigate();
+
 
 
   const navigateToProjectHive = () => {
