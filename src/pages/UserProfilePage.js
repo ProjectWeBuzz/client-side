@@ -7,6 +7,16 @@ const UserProfile = () => {
   const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
 
   useEffect(() => {
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
     // const fetchUserProfile = async () => {
     //   try {
     //     const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/profile/${user.username}`, 
@@ -16,6 +26,7 @@ const UserProfile = () => {
     //     console.error("Error fetching user data:", error);
     //   }
     // };
+
 
     // if (isLoggedIn) {
     //   fetchUserProfile();
@@ -29,7 +40,7 @@ const UserProfile = () => {
           <div className="col-md-6 col-lg-4 text-center">
             <div className="text-center">
               <img
-                src={user.hoto || "/avatar-icon-png-26.jpg"}
+                src={user.photo || "/avatar-icon-png-26.jpg"}
                 alt="User's Photo"
                 className="img-fluid rounded-circle profile-photo"
               />

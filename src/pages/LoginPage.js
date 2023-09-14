@@ -1,3 +1,12 @@
+import React from 'react';
+import {
+  MDBContainer,
+}
+from 'mdb-react-ui-kit';
+
+import Button from 'react-bootstrap/Button';
+
+
 import { useState, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,6 +31,7 @@ const value = e.target.value;
 setUser(user => ({...user, [name]: value}))
 };
 
+
 const handleLoginSubmit = (e) => {
   e.preventDefault();
   const requestBody = {
@@ -29,13 +39,13 @@ const handleLoginSubmit = (e) => {
     password: user.password
   };
 
+
   axios.post(`${API_URL}/auth/login`, requestBody)
     .then((response) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
       console.log(authToken)
-      authenticateUser(); 
-      
+      authenticateUser();
     })
     .catch((error) => {
       const errorDescription = error.response.data.message;
@@ -50,6 +60,7 @@ const handleLoginSubmit = (e) => {
   return (
 
     <div className="loginContainer">
+    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
       {isLoggedIn ? (
         <button onClick={handleLogout}>Log Out</button>
       ) : (
@@ -57,6 +68,7 @@ const handleLoginSubmit = (e) => {
       <div><br></br>
           <h2>Login</h2> 
           <br></br>
+          
 
           <label>Email:</label>
           <br />
@@ -70,15 +82,24 @@ const handleLoginSubmit = (e) => {
           <br></br>
           <br></br>
 
-          <button  className="round-button2" type="submit">Log In</button>
+          <Button variant="dark" type="submit">
+            Login
+          </Button>
+          <br></br>
+        
       </div>
+      
       </form>
+      
       )}
        { errorMessage && <p className="error-message">{errorMessage}</p> }
-
+    
+       <br></br>
       <p>Don't have an account yet?</p>
       <Link to={"/signup"}>Sign Up</Link>
+      </MDBContainer>
     </div>
+    
   );
 }
 

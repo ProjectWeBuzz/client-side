@@ -4,99 +4,132 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import React, { useContext } from 'react';
 import { AuthContext } from "../context/auth.context";
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react'; 
 
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
-import Col from 'react-bootstrap/Col';
+// import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
+// import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
+const API_URL = "http://localhost:5005";
+const storedToken = localStorage.getItem("authToken");
 
-function KitchenSinkExample() {
+function NewUserProfilePage() {
 
-    const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+    const { isLoggedIn, user, setUser, logOutUser } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
-    const navigateToProjectHive = () => {
-        navigate('/project-hive');
+    const [projects, setProjects] = useState([]);
+
+    const getAllProjects = () => {
+
+      axios
+        .get(`${API_URL}/api/projects`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+        .then((response) => setProjects(response.data))
+        .catch((error) => console.log(error));
     };
 
-    const navigateToMyProjects = () => {
+    useEffect(() => {
+      getAllProjects();
+    }, []);
+
+
+    const navigateToProjectHive = () => {
         navigate('/projects');
     };
-    
+
     const navigateToMyColabs = () => {
         navigate('/colabs');
     };
 
-    const navigateToMessageMe = () => {
-        navigate('/message');
-    };
 
     const navigateToInbox = () => {
         navigate('/inbox');
     };
+
+    const navigateToEditProfile = () => {
+      navigate('/profile/update-profile')
+    }
+
+    const navigateToMyProjects = () => {
+      navigate('/myprojects')
+    }
     
+  
+    
+      useEffect(() => {
+        const fetchUserProfile = async () => {
+          try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
+            setUser(response.data);
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          }
+        };
+    
+        if (isLoggedIn) {
+          fetchUserProfile();
+        }
+      }, [isLoggedIn, setUser, user.username]);
+
 
   return (
-   
+    
     <div>
-      {isLoggedIn ? (
+    <br></br>
+      {isLoggedIn && user ? (
         <>
-        <Card style={{ width: '30rem', display:"flex", alignItems: "center"  }}>
+        <Card style={{ width: 'auto', display:"flex", alignItems: "center", border:"none"}}>
             {user && user.photo ? (
-            <Card.Img variant="top" src={user.photo} alt="userphoto" />
+            <Card.Img variant="top" src={user.photo} alt="User's Photo" className="img-fluid rounded-circle profile-photo"/>
             ) : (
-            <div className="placeholder-photo rounded-circle"></div>
+            <div className="placeholder-photo rounded-circle">
+            <Card.Img style={{width:"150px"}} variant="top" src={"/avatar-icon-png-26.jpg"} alt="User's Photo" className="img-fluid rounded-circle profile-photo"/>
+            </div>
             )}
+            <br></br>
             <Card.Body>
-                <Container>
-                    <Row>
-                        <Col xs={6} md={4}>
-                        <Image src="holder.js/171x180" roundedCircle />
-                        </Col>
-                    </Row>
-                </Container>
-                <Card.Title>{user ? user.username : 'Username'}</Card.Title>
-                <Card.Text>Username</Card.Text>
-                <Card.Text>Description of the user</Card.Text>
-                <Card.Text>
-                {user ? user.description : 'User description goes here.'}
-                </Card.Text>
+                <Card.Text className="display-4 text-center" style={{textSizeAdjust:"30px"}}>{user.username || 'Username Here'}</Card.Text>
+                <br></br>
+                <Card.Title className="fs-4 text-center">{user.description || 'Username Description Here'}</Card.Title>
+                <br></br>
+                <Card.Title className="fs-5 text-center">{user.email || 'User Email Here'}</Card.Title>
             </Card.Body>
+            <br></br>
             <ListGroup className="list-group-flush">
+
+                <Button onClick={navigateToEditProfile} variant="dark">Edit Profile</Button>
+                <br></br>
                 <Button onClick={navigateToProjectHive} variant="dark">Projects Hive</Button>
                 <br></br>
                 <Button onClick={navigateToMyProjects} variant="dark">My Projects</Button>
                 <br></br>
-                <Button onClick={navigateToMyColabs} variant="dark">Colabs</Button>
+                <Button onClick={navigateToInbox} variant="dark">Messages</Button>
                 <br></br>
-                <Button onClick={navigateToMessageMe} variant="dark">Message Me</Button>
-                <br></br>
-                <Button onClick={navigateToInbox} variant="dark">Inbox</Button>
+                <Button onClick={logOutUser} variant="danger">Logout</Button>
+
             </ListGroup>
         </Card>
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-4">
-            <div className="text-center">
-              
-              <h1 className="mt-3">{user ? user.username : 'Username'}</h1>
-              <p>{user ? user.description : 'User description goes here.'}</p>
-            </div>
-          </div>
-        </div>
+
+        <br></br>
+        <br></br>
+        
         </>
       ) : (
         <p>Please log in to view your profile.</p>
       )}
-
-        
+      
     </div>
   );
 };
 
-export default KitchenSinkExample;
+export default NewUserProfilePage;
