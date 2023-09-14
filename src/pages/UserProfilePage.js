@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 
 const UserProfile = () => {
-  const { isLoggedIn, user, setUser, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, user, setUser, storedToken, logOutUser } = useContext(AuthContext);
 
   useEffect(() => {
+
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
@@ -16,10 +17,21 @@ const UserProfile = () => {
       }
     };
 
-    if (isLoggedIn) {
-      fetchUserProfile();
-    }
-  }, [isLoggedIn, setUser, user.username]);
+    // const fetchUserProfile = async () => {
+    //   try {
+    //     const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/profile/${user.username}`, 
+    //     { headers: { Authorization: `Bearer ${storedToken}`} } );
+    //     setUser(response.data);
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //   }
+    // };
+
+
+    // if (isLoggedIn) {
+    //   fetchUserProfile();
+    // }
+  }, [isLoggedIn, setUser, user.username, user]);
 
   return (
     <div className="container">

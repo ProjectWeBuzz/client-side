@@ -13,6 +13,7 @@ function AuthProviderWrapper(props) {
   //Token is stored locally => user keeps logged in  
   const storeToken = (token) => {      
     localStorage.setItem('authToken', token);
+    console.log(localStorage.getItem ("authToken"))
   }
 
   const authenticateUser = () => { 
