@@ -45,7 +45,7 @@ const handleLoginSubmit = (e) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
       authenticateUser(); 
-      navigate('/profile/:username');
+      navigate(`/profile/${user.username}`);
     })
     .catch((error) => {
       const errorDescription = error.response.data.message;

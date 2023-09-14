@@ -60,6 +60,7 @@ function App() {
       <Route path="/projects/:projectId" element={<NewProjectDetails/>}></Route>
       {/* <Route path="/projects/:projectId" element={<IsPrivate><ProjectDetails/> </IsPrivate>}>  </Route> */}
 
+{/* Esta rota não deu para fazer comment */}
       <Route path="/projects/edit/:projectId" element={<ProjectEdit/>}></Route>
 
 

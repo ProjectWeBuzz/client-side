@@ -24,24 +24,6 @@ function NewUserProfilePage() {
 
     const navigate = useNavigate();
 
-    const [projects, setProjects] = useState([]);
-
-    const getAllProjects = () => {
-
-      axios
-        .get(`${API_URL}/api/projects`, {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        })
-        .then((response) => setProjects(response.data))
-        .catch((error) => console.log(error));
-    };
-
-    useEffect(() => {
-      getAllProjects();
-    }, []);
-
 
     const navigateToProjectHive = () => {
         navigate('/projects');
