@@ -6,24 +6,22 @@ import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
 
 import HomePage from "./pages/HomePage";
-import NewNavBar from "./components/NewNavBar";
 import SignUp from './pages/SignUpPage';
 import Login from './pages/LoginPage';
-// import NavBar from './components/NavBar';
-
-import UserProfile from './pages/UserProfilePage';
 import NewUserProfile from "./pages/NewUserProfilePage";
 import UserSettings from './pages/UserSettingsPage';
-
 import Inbox from './pages/UserInboxPage';
 import MessageDetail from './components/MessageDetail';
 
-import AllProjectsPage from "./pages/AllProjectsPage";
-import CreateProject from "./components/CreateProject";
-import ProjectDetails from "./pages/ProjectDetails";
-import ProjectEdit from "./pages/ProjectEdit";
-import NewCreateProject from "./pages/NewCreateProject";
+import Inbox from './pages/UserInboxPage';
+import NewNavBar from "./components/NewNavBar";
+import NewUserProfilePage from "./pages/NewUserProfilePage";
 
+import NewCreateProject from "./pages/NewCreateProject";
+import NewAllProjectsPage from "./pages/NewAllProjectsPage";
+import NewProjectDetails from "./pages/NewProjectDetails";
+import NewEditProject from "./pages/NewEditProject";
+import MyProjectsPage from "./pages/MyProjectsPage";
 
 function App() {
   return (
@@ -33,26 +31,19 @@ function App() {
 
     <Routes>
       
-      <Route path="/" element={<IsAnon><HomePage /></IsAnon>} /> 
+      <Route path="/" element={<HomePage />} /> 
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
       <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
 
-      <Route path="/profile/:username" element={<IsPrivate><NewUserProfile /> </IsPrivate>} />
+      <Route path="/profile/:username" element={<IsPrivate><NewUserProfilePage/> </IsPrivate>} />
       <Route path="/profile/update-profile/:username" element={<IsPrivate><UserSettings /></IsPrivate>} />
       <Route path="/messages/:username" element={ <IsPrivate><Inbox /></IsPrivate> } /> 
 
-      {/* <Route path="/create-project" element={<IsPrivate> <CreateProject /> </IsPrivate> } />  */}
-      <Route path="/projects" element={<IsPrivate><AllProjectsPage /> </IsPrivate>} /> 
-      <Route path="/projects/:projectId" element={<IsPrivate><ProjectDetails/> </IsPrivate>} />  
-      <Route path="/projects/edit/:projectId" element={<IsPrivate><ProjectEdit/> </IsPrivate>} /> 
-       {/* <Route path="/create-project" element={ <CreateProject /> } />  */}
       <Route path="/create-project" element={ <NewCreateProject /> } /> 
-      <Route path="/projects" element={ <AllProjectsPage /> } /> 
-      {/* <Route path="/projects/:projectId" element={<ProjectDetails/>}></Route> */}
-      {/* <Route path="/projects/edit/:projectId" element={<ProjectEdit/>}></Route> */}
-      {/* Rota anterior : <Route path="/projects" element={ <IsPrivate><AllProjectsPage /></IsPrivate> } /> */}
-
-      
+      <Route path="/myprojects" element={<IsPrivate><MyProjectsPage/></IsPrivate>}/> 
+      <Route path="/projects" element={<IsPrivate><NewAllProjectsPage /> </IsPrivate>} /> 
+      <Route path="/projects/edit/:projectId" element={<IsPrivate><NewEditProject/> </IsPrivate>}></Route>
+      <Route path="/projects/:projectId" element={<NewProjectDetails/>}></Route>
 
     </Routes>
  

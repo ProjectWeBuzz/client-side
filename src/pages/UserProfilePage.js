@@ -8,6 +8,31 @@ const UserProfile = () => {
 
   useEffect(() => {
 
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    // const fetchUserProfile = async () => {
+    //   try {
+    //     const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/profile/${user.username}`, 
+    //     { headers: { Authorization: `Bearer ${storedToken}`} } );
+    //     setUser(response.data);
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //   }
+    // };
+
+
+    // if (isLoggedIn) {
+    //   fetchUserProfile();
+    // }
+
   }, [isLoggedIn, setUser, user.username, user]);
 
   return (
