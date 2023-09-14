@@ -6,6 +6,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import {Link} from "react-router-dom"
 
 import {useNavigate} from 'react-router-dom';
+import { AuthContext } from "../context/auth.context";
+import { useContext } from 'react';
+
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -18,6 +21,7 @@ function NewProjectDetails() {
     const navigate = useNavigate();
     const { projectId } = useParams();
     const storedToken = localStorage.getItem("authToken");
+    const { user } = useContext(AuthContext);
 
     const [project, setProject] = useState({});
     
@@ -111,14 +115,17 @@ function NewProjectDetails() {
         <br></br>
 
         <ListGroup className="list-group-flush">
-            <Button style={{ width: 'auto', display:"flex", alignItems: "center", border:"none"}} variant="dark">Send message to Collab</Button>
-              <br></br>
-            <Button onClick={navigateToEditProject} variant="dark">Edit Project</Button>
+            {user._id === project.owner ? (
+              <>
+              <Button onClick={navigateToEditProject} variant="dark">Edit Project</Button>
+              </>
+            ):(
+              <Button style={{ width: 'auto', display:"flex", alignItems: "center", border:"none"}} variant="dark">Send message to Collab</Button>
+            )}
         </ListGroup>
-        
       
       <br></br>
-        <Button onClick={navigateBack} variant="dark">Back to Projects</Button>
+        <Button onClick={navigateBack} variant="dark">Back to Project Hive</Button>
      
 
     </Card>

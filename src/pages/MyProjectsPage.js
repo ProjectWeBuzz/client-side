@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from "../context/auth.context";
 import { Link } from 'react-router-dom';
 import {useParams} from "react-router-dom";
@@ -24,11 +24,6 @@ function MyProjectsPage() {
     const { user } = useContext(AuthContext);
     const storedToken = localStorage.getItem("authToken");
     const [projects, setProjects] = useState([]);
-
-
-    console.log(user._id);
-    console.log(projects.owner);
-    console.log(projects);
 
     const getAllProjects = () => {
 
@@ -65,15 +60,12 @@ function MyProjectsPage() {
             </Link>
             <Card.Body style={{width: '100px', alignItems: "center", border:"none"}}>
               <Card.Title>{project.title}</Card.Title>
-              <Card.Text>
-                {project.description}
-              </Card.Text>
             </Card.Body>
           </Card>
             ))}
           </Row>
           
-        <Button variant="dark"> <Link to="/profile" style={{color:"white"}}>Profile</Link></Button>
+        <Button variant="dark"> <Link to={`/profile/:${user.username}`} style={{color:"white"}}>Profile</Link></Button>
         <br></br>
         <br></br>
         <Button variant="dark"> <Link to="/create-project" style={{color:"white"}}>Add New Project</Link></Button>

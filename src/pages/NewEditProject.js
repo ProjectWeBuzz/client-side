@@ -18,19 +18,20 @@ const API_URL = "http://localhost:5005";
 
 function NewEditProject(props) {
 
+    const { projectId } = useParams();
+    const navigate = useNavigate();
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [tags, setTags] = useState([]);
     const [sociallinksproject, setSociallinksproject] = useState([]);
     const [creationdate, setCreationdate] = useState("");
-    const [IsPrivate, setIsPrivate] = useState(true);
-    const [images, setImages] = useState([]);
+    const [isPrivate, setIsPrivate] = useState(true);
 
     const [existingTags, setExistingTags] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
 
-    const [existingImages, setExistingImages] = useState([]);
-    const [selectedImages, setSelectedImages] = useState([]);
+    const [images, setImages] = useState([]);
 
     const [existingLinks, setExistingLinks] = useState([]);
 
@@ -41,20 +42,13 @@ function NewEditProject(props) {
         { value: "Paintings", label: "Paintings" },
       ];
 
-      const handleTagChange = (selectedOptions) => {
-        setSelectedTags(selectedOptions);
-      };
-
-      const handleImageChange = (e) => {
-        const files = e.target.files;
-        setSelectedImages([...selectedImages, ...files]);
-      };
-
     // const tagLimit = tags.length >= 5;
 
-    const {projectId} = useParams();  
-    const navigate = useNavigate();
-  
+  const handleImageChange = (e) => {
+    const selectedImages = Array.from(e.target.files);
+    setImages(selectedImages);
+  };
+
   
     useEffect(() => {                                  
       axios
@@ -70,60 +64,40 @@ function NewEditProject(props) {
           setTags(oneProject.tags);
           setSociallinksproject(oneProject.sociallinksproject);
           setCreationdate(oneProject.creationdate);
-          setIsPrivate(oneProject.IsPrivate);
-          setImages(oneProject.images);
+          setIsPrivate(oneProject.isPrivate);
           setExistingTags(oneProject.tags);
-          setExistingImages(oneProject.images);
           setExistingLinks(oneProject.sociallinksproject);
+
+          setSelectedTags(oneProject.tags.map(tag => ({ value: tag, label: tag })));
         })
         .catch((error) => console.log(error));
       
     }, [projectId]);
 
 
+    useEffect(() => {
+        axios
+          .get(`${process.env.REACT_APP_API_URL}/api/tags`)
+          .then((response) => {
+            const tags = response.data.map((tag) => ({
+              value: tag._id,
+              label: tag.name,
+            }));
+            setExistingTags(tags);
+          })
+          .catch((error) => console.log(error));
+      }, []);
+    
+      // Modify handleTagChange to update selectedTags
+      const handleTagChange = (selectedOptions) => {
+        setSelectedTags(selectedOptions);
+      };
+
+    
+
     const handleCheckboxChange = (e) => {
         setIsPrivate(e.target.checked);
       };
-  
-    const handleFormSubmit = (e, isDelete) => {                     
-      e.preventDefault();
-
-      if(isDelete){
-        const userConfirmed = window.confirm("Are you sure you want to delete this project?");
-      if (userConfirmed) {
-        axios
-          .delete(`${API_URL}/api/projects/${projectId}`)
-          .then(() => {
-            // Once the delete request is resolved successfully
-            // navigate back to the list of projects.
-            navigate("/projects");
-          })
-          .catch((err) => console.log(err));
-      } else {
-        navigate(`/projects/${projectId}`);
-        console.log("Deletion was canceled");
-      }
-    } else {
-        const requestBody = { title, description, tags, sociallinksproject, creationdate, IsPrivate };
-        axios
-          .put(`${API_URL}/api/projects/${projectId}`, requestBody)
-          .then(() => {
-            // Once the request is resolved successfully and the project
-            // is updated we navigate back to the details page
-            navigate(`/projects/${projectId}`);
-          });
-    }
-    //   // Create an object representing the body of the PUT request
-    //   const requestBody = { title, description, tags, sociallinksproject, creationdate, IsPrivate };
-  
-    //   axios
-    //   .put(`${API_URL}/api/projects/${projectId}`, requestBody)
-    //   .then(() => {
-    //     // Once the request is resolved successfully and the project
-    //     // is updated we navigate back to the details page
-    //     navigate(`/projects/${projectId}`)
-    //   });
-  };
   
   
   const deleteProject = () => {                    
@@ -148,62 +122,6 @@ function NewEditProject(props) {
     };
 
 
-    const addTag = () => {
-        if (tags.length < 5) {
-          setTags([...tags, ""]); // Add an empty tag input
-        }
-      };
-    
-      const removeTag = (index) => {
-        const updatedTags = [...tags];
-        updatedTags.splice(index, 1);
-        setTags(updatedTags);
-      };
-    
-      const updateTag = (index, value) => {
-        const updatedTags = [...tags];
-        updatedTags[index] = value;
-        setTags(updatedTags);
-      };
-
-
-
-      const addNewImage = () => {
-        setSelectedImages([...selectedImages, ""]);
-      };
-    
-      const removeImage = (index) => {
-        const updatedSelectedImages = [...selectedImages];
-        updatedSelectedImages.splice(index, 1);
-        setSelectedImages(updatedSelectedImages);
-      };
-    
-      const updateImage = (index, url) => {
-        const updatedSelectedImages = [...selectedImages];
-        updatedSelectedImages[index] = url;
-        setSelectedImages(updatedSelectedImages);
-      };
-
-
-      const renderImage = () => {
-        return selectedImages.map((image, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              placeholder={`Image URL ${index + 1}`}
-              value={image}
-              onChange={(e) => updateImage(index, e.target.value)}
-            />
-            <Button
-              variant="danger"
-              onClick={() => removeImage(index)}
-            >
-              Remove
-            </Button>
-          </div>
-        ));
-      };
-
 
       const addNewLink = () => {
         setSociallinksproject([...sociallinksproject, ""]);
@@ -220,7 +138,62 @@ function NewEditProject(props) {
         updatedLinks[index] = url;
         setSociallinksproject(updatedLinks);
       };
+
+
+      
+
+    const handleFormSubmit = (e, isDelete) => {                     
+        e.preventDefault();
   
+        if(isDelete){
+          const userConfirmed = window.confirm("Are you sure you want to delete this project?");
+        if (userConfirmed) {
+          axios
+            .delete(`${API_URL}/api/projects/${projectId}`)
+            .then(() => {
+              // Once the delete request is resolved successfully
+              // navigate back to the list of projects.
+              navigate("/projects");
+            })
+            .catch((err) => console.log(err));
+        } else {
+          navigate(`/projects/${projectId}`);
+          console.log("Deletion was canceled");
+        }
+      } else {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("tags", JSON.stringify(tags.map((tag) => tag.value)));
+        formData.append("sociallinksproject", JSON.stringify(sociallinksproject));
+        formData.append("creationdate", creationdate);
+        formData.append("isPrivate", isPrivate);
+
+        for (const image of images) {
+            formData.append("images", image);
+          }
+      
+          axios
+            .put(`${API_URL}/api/projects/${projectId}`, formData)
+            .then(() => {
+              // Once the request is resolved successfully and the project
+              // is updated we navigate back to the details page
+              navigate(`/projects/${projectId}`);
+            });
+      }
+      //   // Create an object representing the body of the PUT request
+      //   const requestBody = { title, description, tags, sociallinksproject, creationdate, IsPrivate };
+    
+      //   axios
+      //   .put(`${API_URL}/api/projects/${projectId}`, requestBody)
+      //   .then(() => {
+      //     // Once the request is resolved successfully and the project
+      //     // is updated we navigate back to the details page
+      //     navigate(`/projects/${projectId}`)
+      //   });
+    };
+    
+      
 
   return (
 
@@ -254,74 +227,32 @@ function NewEditProject(props) {
             onChange={(e) => setCreationdate(e.target.value)}/>
         </Form.Group>
     <br></br>
+    
       <Form.Group className="mb-3" controlId="formGridImages">
-        <Form.Label>Add Images</Form.Label>
-        <br></br>
-        {images.map((image, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              placeholder={`Image URL ${index + 1}`}
-              value={image}
-              onChange={(e) => updateImage(index, e.target.value)}
-            />
-            <Button
-              variant="danger"
-              onClick={() => removeImage(index)}
-              disabled={existingImages.length <= index}
-            >
-              Remove
-            </Button>
-            <Form.Control 
-                type="file"
-                name="images"
-                accept="image/*"
-                onChange={handleImageChange} 
-                multiple
-            />
-          </div>
-        ))}
-        {renderImage()}
-        <Button variant="success" onClick={addNewImage}>
-          Add Image
-        </Button>
+      <Form.Label>Images</Form.Label>
+        <Form.Control
+          type="file"
+          name="images"
+          accept="image/*"
+          onChange={handleImageChange}
+          multiple
+        />
       </Form.Group>
 
     <br></br>
 
       <Form.Group as={Col} controlId="formGridTags">
-          <Form.Label>Tags (max:5)</Form.Label>
-        <br></br>
-            {tags.map((tag, index) => (
-            <div key={index}>
-                <input
-                type="text"
-                placeholder={`Tag ${index + 1}`}
-                value={tag}
-                onChange={(e) => updateTag(index, e.target.value)}
-                />
-                <Button
-                variant="danger"
-                onClick={() => removeTag(index)}
-                disabled={existingTags.length <= index}
-                >
-                Remove
-                </Button>
-            </div>
-            ))}
-            <div>
-            <Select 
-                isMulti
-                options={availableTags}
-                value={selectedTags}
-                onChange={handleTagChange}
-                placeholder="Select tags..."
-                maxMenuHeight={100} // Adjust the height as needed
-            />
-            </div>
-            <Button variant="success" onClick={addTag} disabled={tags.length >= 5}>
-            Add Tag
-            </Button>
+      <Form.Label>Tags (max: 5)</Form.Label>
+        <div>
+          <Select
+            isMulti
+            options={availableTags}
+            value={selectedTags}
+            onChange={handleTagChange}
+            placeholder="Select tags..."
+            maxMenuHeight={100} // Adjust the height as needed
+          />
+        </div>
         </Form.Group>
 
     <br></br>
@@ -360,7 +291,7 @@ function NewEditProject(props) {
         <Form.Check
             type="checkbox" // Use "checkbox" for boolean values
             name="IsPrivate" 
-            checked={IsPrivate} // Assuming "private" is a boolean variable
+            checked={isPrivate} // Assuming "private" is a boolean variable
             onChange={handleCheckboxChange} 
         /> 
       </Form.Group>

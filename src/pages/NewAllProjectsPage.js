@@ -1,16 +1,15 @@
 
-import Carousel from 'react-bootstrap/Carousel';
-// import ExampleCarouselImage from '/public/avatar-icon-png-26.jpg';
+import { useState, useEffect } from "react";
+import axios from "axios"
+import {Link} from "react-router-dom"
 
+import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Select from "react-select";
 
-
-import { useState, useEffect } from "react";
-import axios from "axios"
-import {Link} from "react-router-dom"
 
 const API_URL = "http://localhost:5005";
 
@@ -18,8 +17,30 @@ const API_URL = "http://localhost:5005";
 function AllProjects() {
 
     const [projects, setProjects] = useState([]);
-    const [searchTags, setSearchTags] = useState("");
     const storedToken = localStorage.getItem("authToken");
+    const [selectedTags, setSelectedTags] = useState([]);
+    const availableTags = [
+        { value: "Tech", label: "Tech" },
+        { value: "Frontend", label: "Frontend" },
+        { value: "Backend", label: "Backend" },
+        { value: "Paintings", label: "Paintings" },
+      ];
+    
+      const handleTagChange = (selectedOptions) => {
+        setSelectedTags(selectedOptions);
+      };
+
+      const filterProjectsByTags = (project) => {
+        if (!selectedTags.length) {
+          return true; // No tags are selected, show all projects
+        }
+        const projectTags = JSON.parse(project.tags[0]).map((tag) => tag.toLowerCase());
+        const selectedTagValues = selectedTags.map((tag) => tag.value.toLowerCase());
+
+        return selectedTagValues.every((selectedTagValue) =>
+            projectTags.includes(selectedTagValue)
+        );
+      };
     
     const getAllProjects = () => {
 
@@ -37,19 +58,6 @@ function AllProjects() {
         getAllProjects();
       },[]);
 
-      const filterProjectsByTags = (project) => {
-        if (!searchTags) {
-          return true; // No tags are entered in the search bar, show all projects
-        }
-        const projectTags = project.tags.map((tag) => tag.toLowerCase());
-        const searchTagsArray = searchTags
-            .split(",")
-            .map((tag) => tag.trim().toLowerCase()); // Trim and lowercase tags
-        return searchTagsArray.some((tag) =>
-          projectTags.includes(tag)
-        );
-      };
-
   return (
     <>
     <Card style={{ width: 'auto', display:"flex", alignItems: "center", border:"none"}}>
@@ -61,14 +69,16 @@ function AllProjects() {
     {/* Seach bar is not WORKING!!! */}
 
     <Col xs="auto">
-            <Form.Control
-              type="text"
-              placeholder="Search by tags (comma-separated)"
-              className=" mr-sm-2"
-              value={searchTags}
-              onChange={(e) => setSearchTags(e.target.value)}
-            />
+        <Select 
+        isMulti
+        options={availableTags}
+        value={selectedTags}
+        onChange={handleTagChange}
+        placeholder="Select tags..."
+        maxMenuHeight={100} // Adjust the height as needed
+        />
     </Col>
+
 
     {/* <input
         type="text"
@@ -83,7 +93,8 @@ function AllProjects() {
     </Card>
             <Carousel>
             {projects
-                .filter((project) => filterProjectsByTags && project.isPrivate === false) // Apply your filtering logic here
+                .filter((project) => project.isPrivate === false)
+                .filter((project) => !selectedTags.length || filterProjectsByTags(project))
                 .map((project) => (
                 <Carousel.Item key={project._id}>
                     <Link to={`/projects/${project._id}`} style={{color:"black", textDecoration: 'none' }}>
