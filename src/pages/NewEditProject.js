@@ -265,7 +265,7 @@ function NewEditProject(props) {
           <div key={index}>
             <input
               type="text"
-              placeholder={`Link ${index + 1}`}
+              placeholder={`Add link here`}
               value={tag}
               onChange={(e) => updateLink(index, e.target.value)}
             />

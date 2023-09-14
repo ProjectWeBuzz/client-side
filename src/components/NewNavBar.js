@@ -46,7 +46,7 @@ function NewProfile() {
                     <Nav.Link href="/projects" onClick={handleLinkClick}>The Hive</Nav.Link>
                     <Nav.Link onClick={logOutUser}>Logout</Nav.Link>
                     <br></br>
-                    <span>Welcome {user && user.username} !</span> 
+                    <span style={{ flexGrow: 1, textAlign: 'center', paddingRight:"200px" }}>Welcome {user && user.username} !</span> 
                     </>
                     ) : (
 

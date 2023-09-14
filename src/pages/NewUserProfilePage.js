@@ -111,8 +111,6 @@ function NewUserProfilePage() {
                 <br></br>
                 <Button onClick={navigateToProjectHive} variant="dark">Projects Hive</Button>
                 <br></br>
-                <Button onClick={navigateToMyColabs} variant="dark">Colabs</Button>
-                <br></br>
                 <Button onClick={navigateToMyProjects} variant="dark">My Projects</Button>
                 <br></br>
                 <Button onClick={navigateToInbox} variant="dark">Messages</Button>
