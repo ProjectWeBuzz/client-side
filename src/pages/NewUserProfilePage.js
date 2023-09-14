@@ -34,6 +34,7 @@ function NewUserProfilePage() {
 
     const navigateToMyProjects = () => {
         navigate('/myProjects');
+    }
     
     const navigateToInbox = () => {
         navigate(`/messages/${user.username}`)
@@ -43,9 +44,6 @@ function NewUserProfilePage() {
       navigate('/profile/update-profile')
     }
 
-    const navigateToMyProjects = () => {
-      navigate('/myprojects')
-    }
     
   
     
@@ -58,6 +56,7 @@ function NewUserProfilePage() {
             console.error("Error fetching user data:", error);
           }
         };
+      });
     
 
     const navigateToUpdateProfile = () => {
@@ -113,7 +112,7 @@ function NewUserProfilePage() {
 
     </div>
   );
-};
+  };
 
 
 export default NewUserProfilePage;
