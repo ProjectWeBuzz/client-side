@@ -3,16 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from "./pages/HomePage";
 import SignUp from './pages/SignUpPage';
 import Login from './pages/LoginPage';
-// import NavBar from './components/NavBar';
-// import UserProfile from './pages/UserProfilePage';
+
 import UserSettings from './pages/UserSettingsPage';
 import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
 
-// import AllProjectsPage from "./pages/AllProjectsPage";
-// import CreateProject from "./components/CreateProject";
-// import ProjectDetails from "./pages/ProjectDetails";
 import ProjectEdit from "./pages/ProjectEdit";
 import Inbox from './pages/UserInboxPage';
 
@@ -38,7 +34,7 @@ function App() {
       <Route path="/myprojects" element={<IsPrivate><MyProjectsPage/></IsPrivate>}/> 
       <Route path="/projects" element={<IsPrivate><NewAllProjectsPage /> </IsPrivate>} /> 
       <Route path="/projects/edit/:projectId" element={<IsPrivate><NewEditProject/> </IsPrivate>}> </Route>
-      <Route path="/profile/:username" element={<IsPrivate><UserProfile /> </IsPrivate>} />
+      <Route path="/profile/:username" element={<IsPrivate><NewUserProfilePage /> </IsPrivate>} />
       <Route path="/profile/update-profile" element={<IsPrivate><UserSettings /></IsPrivate>} />
       <Route path="/create-project" element={ <NewCreateProject/> } />
       <Route path="/projects/:projectId" element={<NewProjectDetails/>}></Route>
