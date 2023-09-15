@@ -47,10 +47,7 @@ function App() {
       <Route path="/projects/edit/:projectId" element={<IsPrivate><ProjectEdit/> </IsPrivate>} /> 
        
       <Route path="/create-project" element={ <NewCreateProject /> } /> 
-      <Route path="/projects" element={ <AllProjectsPage /> } /> 
-      
-      
-
+ 
     </Routes>
  
   </div>
