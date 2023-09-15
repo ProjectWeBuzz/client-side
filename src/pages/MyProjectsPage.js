@@ -35,7 +35,7 @@ function MyProjectsPage() {
     const getAllProjects = () => {
 
       axios
-        .get(`${API_URL}/api/projects`, {
+        .get(`${process.env.REACT_APP_API_URL}/api/projects`, {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
