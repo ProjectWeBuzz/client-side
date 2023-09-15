@@ -35,7 +35,7 @@ const handleLoginSubmit = (e) => {
   };
 
 
-  axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, requestBody)
+  axios.post(`${process.env.REACT_APP_API_URL}/login`, requestBody)
     .then((response) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
@@ -91,7 +91,7 @@ const handleLoginSubmit = (e) => {
     
        <br></br>
       <p>Don't have an account yet?</p>
-      <Link to={"/auth/signup"}>Sign Up</Link>
+      <Link to={"/signup"}>Sign Up</Link>
       </MDBContainer>
     </div>
     
