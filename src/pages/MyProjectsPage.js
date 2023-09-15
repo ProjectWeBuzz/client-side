@@ -1,11 +1,9 @@
 import Card from 'react-bootstrap/Card';
 // import ListGroup from 'react-bootstrap/ListGroup';
-
 import { useContext } from 'react';
 import { AuthContext } from "../context/auth.context";
 import { Link } from 'react-router-dom';
 // import {useParams} from "react-router-dom";
-
 import Button from 'react-bootstrap/Button';
 // import {useNavigate} from 'react-router-dom';
 // import Col from 'react-bootstrap/Col';
@@ -16,7 +14,6 @@ import Row from 'react-bootstrap/Row';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
-const API_URL = "http://localhost:5005";
 // const storedToken = localStorage.getItem("authToken");
 
 function MyProjectsPage() {
