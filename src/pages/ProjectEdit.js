@@ -4,12 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import {useParams, useNavigate} from "react-router-dom";
 
-const API_URL = "http://localhost:5005";
-
-
 
 function EditProjectPage(props) {
-
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,14 +13,11 @@ function EditProjectPage(props) {
   const [sociallinksproject, setSociallinksproject] = useState(["link1", "link2"]);
   const [creationdate, setCreationdate] = useState("");
   const [IsPrivate, setIsPrivate] = useState(true);
-
-
+ 
   const tagLimit = tags.length >= 5;
-
 
   const {projectId} = useParams();  
   const navigate = useNavigate();
-
 
   const handleCheckboxChange = (e) => {
     setIsPrivate(e.target.checked);
@@ -33,7 +26,7 @@ function EditProjectPage(props) {
 
   useEffect(() => {                                  
     axios
-      .get(`${API_URL}/api/projects/${projectId}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`)
       .then((response) => {
         /* 
           We update the state with the project data coming from the response.
@@ -58,7 +51,7 @@ function EditProjectPage(props) {
     const requestBody = { title, description, tags, sociallinksproject, creationdate, IsPrivate };
 
     axios
-    .put(`${API_URL}/api/projects/${projectId}`, requestBody)
+    .put(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`, requestBody)
     .then((response) => {
       // Once the request is resolved successfully and the project
       // is updated we navigate back to the details page
@@ -75,7 +68,7 @@ const deleteProject = () => {
 
     if(userConfirmed){
     axios
-      .delete(`${API_URL}/api/projects/${projectId}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`)
       .then(() => {
         // Once the delete request is resolved successfully
         // navigate back to the list of projects.
