@@ -63,17 +63,17 @@ const UserSettings = () => {
             onChange={(e) => setNewDescription(e.target.value)}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label htmlFor="photo">Profile Photo:</label>
-          <input
-            type="file"
-            className="form-control-file"
-            id="photo"
-            accept="image/*"
-            onChange={(e) => setNewPhoto(e.target.files[0])}
-          /> 
+      //  <div className="form-group">
+       //   <label htmlFor="photo">Profile Photo:</label>
+       //  <input
+        //    type="file"
+       //     className="form-control-file"
+        //    id="photo"
+         //   accept="image/*"
+         //   onChange={(e) => setNewPhoto(e.target.files[0])}
+       //   /> 
           
-        </div>
+     //   </div>
         
         <button type="submit" className="btn btn-primary" onClick={handleFormSubmit}>
           Save
