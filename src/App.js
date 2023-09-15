@@ -41,15 +41,13 @@ function App() {
       <Route path="/profile/update-profile/:username" element={<IsPrivate><UserSettings /></IsPrivate>} />
       <Route path="/messages/:username" element={ <IsPrivate><Inbox /></IsPrivate> } /> 
 
+
       <Route path="/create-project" element={ <NewCreateProject /> } /> 
       <Route path="/myprojects" element={<IsPrivate><MyProjectsPage/></IsPrivate>}/> 
       <Route path="/projects" element={<IsPrivate><NewAllProjectsPage /> </IsPrivate>} /> 
+      <Route path="/projects/edit/:projectId" element={<IsPrivate><NewEditProject/> </IsPrivate>} />
+      <Route path="/projects/:projectId" element={<NewProjectDetails/>} />
 
-      <Route path="/projects/edit/:projectId" element={<IsPrivate><NewEditProject/> </IsPrivate>}> </Route>
-      <Route path="/profile/:username" element={<IsPrivate><NewUserProfilePage /> </IsPrivate>} />
-      <Route path="/profile/update-profile" element={<IsPrivate><UserSettings /></IsPrivate>} />
-
-      <Route path="/projects/:projectId" element={<NewProjectDetails/>}></Route>
 
     </Routes>
  
