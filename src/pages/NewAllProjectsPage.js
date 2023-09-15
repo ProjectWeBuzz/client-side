@@ -7,11 +7,11 @@ import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import Select from "react-select";
 
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://project-wehive.onrender.com";
 
 
 function AllProjects() {

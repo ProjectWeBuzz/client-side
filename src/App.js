@@ -10,12 +10,10 @@ import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
 
-
-import NewUserProfile from "./pages/NewUserProfilePage";
 import UserSettings from './pages/UserSettingsPage';
 
 import Inbox from './pages/UserInboxPage';
-import MessageDetail from './components/MessageDetail';
+// import MessageDetails from './components/MessageDetail';
 import NewNavBar from "./components/NewNavBar";
 import NewUserProfilePage from "./pages/NewUserProfilePage";
 
@@ -35,7 +33,7 @@ function App() {
       
       <Route path="/" element={<HomePage />} /> 
       <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
-      <Route path="/login"  element={<IsAnon><Login /></IsAnon>} />
+      <Route path="/login"  element={<IsAnon><Login/></IsAnon>} />
 
       <Route path="/profile/:username" element={<IsPrivate><NewUserProfilePage/> </IsPrivate>} />
       <Route path="/profile/update-profile/:username" element={<IsPrivate><UserSettings /></IsPrivate>} />
