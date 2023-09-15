@@ -4,16 +4,12 @@ import {useParams} from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Carousel from 'react-bootstrap/Carousel';
 import {Link} from "react-router-dom"
-
 import {useNavigate} from 'react-router-dom';
 import { AuthContext } from "../context/auth.context";
 import { useContext } from 'react';
-
-
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-const API_URL = "http://localhost:5005";
 
 
 function NewProjectDetails() {
@@ -37,7 +33,7 @@ function NewProjectDetails() {
    
     const getProject = () => {
         axios
-          .get(`${API_URL}/api/projects/${projectId}`, {
+          .get(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`, {
             headers: {
                 Authorization: `Bearer ${storedToken}`,
               },
