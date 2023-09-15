@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, useParams} from "react-router-dom";
 
+import { AuthContext } from "../context/auth.context";
+import { useContext } from 'react';
+
 
 const API_URL = "http://localhost:5005";
 
@@ -14,6 +17,10 @@ function ProjectDetails () {
 
     const storedToken = localStorage.getItem("authToken");
 
+    const { user } = useContext(AuthContext);
+
+    console.log('user._id:', user._id);
+    console.log('project.owner._id:', project.owner);
 
     const getProject = () => {
         axios
@@ -39,7 +46,7 @@ function ProjectDetails () {
             <h2>Project Details</h2>
             <br></br>
             <br></br>
-            {/* <img style={{width:"30px"}} src={project.image_url} alt={project.title} /> */}
+            <img style={{width:"30px"}} src={project.image_url} alt={project.title} />
             <h3>{project.title}</h3>
             <br></br>
             <p>Description: {project.description}</p>
@@ -56,7 +63,11 @@ function ProjectDetails () {
             <br></br>
             <br></br>
 
-            <Link to={`/projects/edit/${projectId}`}><button className="round-button">Edit Project</button></Link>
+            {user._id === project.owner ? (
+              <Link to={`/projects/edit/${projectId}`}><button className="round-button">Edit Project</button></Link>
+              ) : (
+              <p>You do not have permission to edit this project.</p>
+            )}
         </div>
     );
 }

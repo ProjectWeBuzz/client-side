@@ -7,14 +7,19 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 // import Row from 'react-bootstrap/Row';
 
-import { useState } from "react";
+import { AuthContext } from "../context/auth.context";
+
+
+import { useState, useContext } from "react";
 
 
 
 function NewCreateProject() {
 
+    const { user } = useContext(AuthContext);
+
     const [title, setTitle] = useState("");
-    //   const [owner, setOwner] = useState("");
+    const [owner, setOwner] = useState("");
     const [description, setDescription] = useState("");
     const [images, setImages] = useState([]);
     const [tags, setTags] = useState([]);
@@ -23,7 +28,6 @@ function NewCreateProject() {
     const [creationdate, setCreationdate] = useState("");
     //   const [collabs, setCollabs] = useState([""]);
     const [isPrivate, setIsPrivate] = useState(true);
-
     
     const navigate = useNavigate();
 
@@ -46,10 +50,6 @@ function NewCreateProject() {
         { value: "Frontend", label: "Frontend" },
         { value: "Backend", label: "Backend" },
         { value: "Paintings", label: "Paintings" },
-        { value: "a", label: "a" },
-        { value: "b", label: "b" },
-        { value: "c", label: "c" },
-        { value: "d", label: "d" },
       ];
 
     // End Tags
@@ -72,24 +72,31 @@ function NewCreateProject() {
 const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const userId = user._id;
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     formData.append("tags", JSON.stringify(tags.map(tag => tag.value)));
     formData.append("creationdate", creationdate);
     formData.append("isPrivate", isPrivate);
-    formData.append("images", images);
+    formData.append("owner", userId);
+
+    for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
 
   try {
     const storedToken = localStorage.getItem("authToken");
     await axios.post(`${process.env.REACT_APP_API_URL}/api/projects`, formData, {
       headers: {
         Authorization: `Bearer ${storedToken}`,
-        // "Content-Type": "multipart/form-data", // Set the content type for FormData
+        "Content-Type": "multipart/form-data", // Set the content type for FormData
       },
     });
 
     console.log("Submitted:", {
+        owner,
       title,
       description,
       tags,
@@ -100,13 +107,15 @@ const handleSubmit = async (e) => {
     });
 
     // Clear form fields and state
+    setOwner("");
     setTitle("");
     setDescription("");
-    setImages({});
+    setImages([]);
     setTags([]);
     setSociallinksproject([]);
     setCreationdate("");
     setIsPrivate(true);
+    
 
     navigate('/projects');
   } catch (error) {
@@ -152,7 +161,9 @@ const handleSubmit = async (e) => {
             type="file"
             name="images"
             accept="image/*"
-            onChange={(e) =>setImages(e.target.files[0])} />
+            onChange={(e) =>setImages(e.target.files)} 
+            multiple
+            />
       </Form.Group>
     <br></br>
       <Form.Group as={Col} controlId="formGridTags">
