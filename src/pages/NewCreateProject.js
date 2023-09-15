@@ -1,17 +1,12 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 // import Row from 'react-bootstrap/Row';
-
 import { AuthContext } from "../context/auth.context";
-
-
 import { useState, useContext } from "react";
-
 
 
 function NewCreateProject() {
