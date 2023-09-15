@@ -6,22 +6,24 @@ import { AuthContext } from '../context/auth.context'
 const UserSettings = () => {
   const { user } = useContext( AuthContext ) ;
   const [email, setNewEmail] = useState('');
+  const [updatedEmail, setUpdatedEmail] = useState(''); 
   const [password, setNewPassword] = useState('');
   const [description, setNewDescription] = useState('');
-  const [photo, setNewPhoto] = useState(null);
+  // const [photo, setNewPhoto] = useState(null);
 
   const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {                     
     e.preventDefault();
-    const requestBody = { email, password, description, photo };
+    const requestBody = { email, password, description };
     const storedToken = localStorage.getItem("authToken");
 
     axios
     .post(`${process.env.REACT_APP_API_URL}/profile/update-profile/${user.username}`, requestBody,
     { headers: { Authorization: `Bearer ${storedToken}`} } )
     .then((response) => {
-      console.log(response)
+      setUpdatedEmail(response.data.updatedEmail);
+      console.log(response);
     });
     
 };
@@ -61,22 +63,16 @@ const UserSettings = () => {
             onChange={(e) => setNewDescription(e.target.value)}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label htmlFor="photo">Profile Photo:</label>
-          <input
-            type="file"
-            className="form-control-file"
-            id="photo"
-            accept="image/*"
-            onChange={(e) => setNewPhoto(e.target.files[0])}
-          /> 
-          
-        </div>
         
         <button type="submit" className="btn btn-primary">
           Save
         </button>
       </form>
+      {updatedEmail && (
+        <div className="alert alert-success mt-3">
+          Updated Email: {updatedEmail}
+        </div>
+      )}
     </div>
   );
 };
