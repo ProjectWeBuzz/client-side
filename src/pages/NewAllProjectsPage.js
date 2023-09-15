@@ -11,8 +11,6 @@ import Col from 'react-bootstrap/Col';
 import Select from "react-select";
 
 
-const API_URL = "https://project-wehive.onrender.com";
-
 
 function AllProjects() {
 
@@ -45,7 +43,7 @@ function AllProjects() {
     const getAllProjects = () => {
 
         axios
-          .get(`${API_URL}/api/projects`, {
+          .get(`${process.env.REACT_APP_API_URL}/api/projects`, {
             headers: {
               Authorization: `Bearer ${storedToken}`,
             },
