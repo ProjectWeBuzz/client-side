@@ -6,22 +6,24 @@ import { AuthContext } from '../context/auth.context'
 const UserSettings = () => {
   const { user } = useContext( AuthContext ) ;
   const [email, setNewEmail] = useState('');
+  const [updatedEmail, setUpdatedEmail] = useState(''); 
   const [password, setNewPassword] = useState('');
   const [description, setNewDescription] = useState('');
-  const [photo, setNewPhoto] = useState(null);
+  // const [photo, setNewPhoto] = useState(null);
 
   const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {                     
     e.preventDefault();
-    const requestBody = { email, password, description, photo };
+    const requestBody = { email, password, description };
     const storedToken = localStorage.getItem("authToken");
 
     axios
     .post(`${process.env.REACT_APP_API_URL}/profile/update-profile/${user.username}`, requestBody,
     { headers: { Authorization: `Bearer ${storedToken}`} } )
     .then((response) => {
-      console.log(response)
+      setUpdatedEmail(response.data.updatedEmail);
+      console.log(response);
     });
     
 };
@@ -73,10 +75,15 @@ const UserSettings = () => {
           
         </div>
         
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" onClick={handleFormSubmit}>
           Save
         </button>
       </form>
+      {updatedEmail && (
+        <div className="alert alert-success mt-3">
+          Updated Email: {updatedEmail}
+        </div>
+      )}
     </div>
   );
 };
