@@ -12,8 +12,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 // import Row from 'react-bootstrap/Row';
 
-const API_URL = "http://localhost:5005";
-
 
 
 function NewEditProject(props) {
@@ -52,7 +50,7 @@ function NewEditProject(props) {
   
     useEffect(() => {                                  
       axios
-        .get(`${API_URL}/api/projects/${projectId}`)
+        .get(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`)
         .then((response) => {
           /* 
             We update the state with the project data coming from the response.
@@ -108,7 +106,7 @@ function NewEditProject(props) {
   
       if(userConfirmed){
       axios
-        .delete(`${API_URL}/api/projects/${projectId}`)
+        .delete(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`)
         .then(() => {
           // Once the delete request is resolved successfully
           // navigate back to the list of projects.
@@ -149,7 +147,7 @@ function NewEditProject(props) {
           const userConfirmed = window.confirm("Are you sure you want to delete this project?");
         if (userConfirmed) {
           axios
-            .delete(`${API_URL}/api/projects/${projectId}`)
+            .delete(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`)
             .then(() => {
               // Once the delete request is resolved successfully
               // navigate back to the list of projects.
