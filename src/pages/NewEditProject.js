@@ -167,7 +167,7 @@ function NewEditProject(props) {
           }
       
           axios
-            .put(`${API_URL}/api/projects/${projectId}`, formData)
+            .put(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`, formData)
             .then(() => {
               // Once the request is resolved successfully and the project
               // is updated we navigate back to the details page
