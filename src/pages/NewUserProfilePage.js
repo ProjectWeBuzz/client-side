@@ -15,7 +15,7 @@ import Row from 'react-bootstrap/Row';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
-const API_URL = "http://localhost:5005";
+
 const storedToken = localStorage.getItem("authToken");
 
 
