@@ -12,7 +12,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
  
-const API_URL = "https://project-wehive.onrender.com";
 
 
 function Login () {
@@ -40,7 +39,7 @@ const handleLoginSubmit = (e) => {
   };
 
 
-  axios.post(`${API_URL}/auth/login`, requestBody)
+  axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, requestBody)
     .then((response) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
