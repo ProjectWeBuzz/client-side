@@ -32,8 +32,8 @@ function App() {
     <Routes>
       
       <Route path="/" element={<HomePage />} /> 
-      <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
-      <Route path="/login"  element={<IsAnon><Login/></IsAnon>} />
+      <Route path="/auth/signup" element={<IsAnon><SignUp /></IsAnon>} />
+      <Route path="/auth/login"  element={<IsAnon><Login/></IsAnon>} />
 
       <Route path="/profile/:username" element={<IsPrivate><NewUserProfilePage/> </IsPrivate>} />
       <Route path="/profile/update-profile/:username" element={<IsPrivate><UserSettings /></IsPrivate>} />
