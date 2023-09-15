@@ -91,7 +91,7 @@ const handleLoginSubmit = (e) => {
     
        <br></br>
       <p>Don't have an account yet?</p>
-      <Link to={"/signup"}>Sign Up</Link>
+      <Link to={"/auth/signup"}>Sign Up</Link>
       </MDBContainer>
     </div>
     
