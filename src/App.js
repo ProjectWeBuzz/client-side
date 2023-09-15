@@ -1,19 +1,21 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import HomePage from "./pages/HomePage";
+import SignUp from './pages/SignUpPage';
+import Login from './pages/LoginPage';
+
+
 import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
 
-import HomePage from "./pages/HomePage";
-import SignUp from './pages/SignUpPage';
-import Login from './pages/LoginPage';
+
 import NewUserProfile from "./pages/NewUserProfilePage";
 import UserSettings from './pages/UserSettingsPage';
-import Inbox from './pages/UserInboxPage';
-import MessageDetail from './components/MessageDetail';
 
 import Inbox from './pages/UserInboxPage';
+import MessageDetail from './components/MessageDetail';
 import NewNavBar from "./components/NewNavBar";
 import NewUserProfilePage from "./pages/NewUserProfilePage";
 

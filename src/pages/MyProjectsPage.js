@@ -25,6 +25,13 @@ function MyProjectsPage() {
     const storedToken = localStorage.getItem("authToken");
     const [projects, setProjects] = useState([]);
 
+    // console.log(projects
+    //     .filter((project) => (user._id === project.owner)));
+    
+
+    console.log(user._id);
+    console.log(projects);
+
     const getAllProjects = () => {
 
       axios
@@ -52,7 +59,7 @@ function MyProjectsPage() {
       <br></br>
           <Row>
           {projects
-            .filter((project) => (user._id === project.owner._id))
+            .filter((project) => (user._id === project?.owner?._id) )
             .map((project) => (
           <Card key={project._id} style={{width: 'auto', display:"flex", alignItems: "center", border:"none", paddingLeft:"50px"}}>
             <Link to={`/projects/${project._id}`} style={{color:"black", textDecoration: 'none' }}>
