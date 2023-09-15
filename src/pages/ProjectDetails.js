@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, useParams} from "react-router-dom";
-
 import { AuthContext } from "../context/auth.context";
 import { useContext } from 'react';
-
-
-const API_URL = "http://localhost:5005";
 
 
 function ProjectDetails () {
@@ -24,7 +20,7 @@ function ProjectDetails () {
 
     const getProject = () => {
         axios
-          .get(`${API_URL}/api/projects/${projectId}`, {
+          .get(`${process.env.REACT_APP_API_URL}/api/projects/${projectId}`, {
             headers: {
                 Authorization: `Bearer ${storedToken}`,
               },
