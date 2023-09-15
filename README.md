@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+## We Hive
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project introduces our collaborative app idea, the ultimate solution for connecting users with like-minded individuals who can contribute their technical or artistic skills to your project. With a simple interface, users can easily navigate through a diverse range of project listings, finding the one that aligns with their interests and expertise. Say hello to productive collaborations and join our community of passionate creators!
 
-## Available Scripts
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- homepage - welcome to the website, log in or sign up;
+- sign up - create an account;
+- logout - logout of your account;
+- user profile - display of pages for the user to navigate
+- projects - browse the projects available on the Project Hive, get inspired to collaborate with another peer;
+- messages - send and receive messages to other users to get in touch and offer to collaborate on their project;
+- 500 - an error page to let you know something has gone wrong
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Routes
 
-### `npm test`
+- HomePage = "/"
+- SignUp = "/signup"
+- Login = "/login"
+- NewUserProfilePage = "/profile/:username"
+- UserSettings = /profile/update-profile/:username"
+- Inbox = "/messages/:username"
+- NewAllProjectsPage = "/projects"
+- NewProjectDetails = "/projects/:projectId"
+- NewCreateProject = "/create-project"
+- NewEditProject = "/projects/edit/:projectId"
+- MyProjectsPage = "/myprojects"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Backlog Functionalities
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Improve message system to peer-to-peer instead of public;
+- Implementation of more tags for projects;
+- More options to update user profile settings such as confirming password field update and profile photo;
+- Creation of footer & home page information.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies used
 
-### `npm run eject`
+React.js, Node.js, Javascript, Bootstrap
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Collaborators
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Viviane Ferreira
+Patricia Moutinho
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+https://we-hive.netlify.app
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
