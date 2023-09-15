@@ -1,17 +1,13 @@
 import React from 'react';
-import {
-  MDBContainer,
-}
-from 'mdb-react-ui-kit';
-
 import Button from 'react-bootstrap/Button';
-
-
 import { useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
- 
+ import {
+  MDBContainer,
+}
+from 'mdb-react-ui-kit';
 
 
 function Login () {
