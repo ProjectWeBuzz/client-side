@@ -50,7 +50,7 @@ function NewUserProfilePage() {
       useEffect(() => {
         const fetchUserProfile = async () => {
           try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/profile/${user.username}`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
             setUser(response.data);
           } catch (error) {
             console.error("Error fetching user data:", error);
