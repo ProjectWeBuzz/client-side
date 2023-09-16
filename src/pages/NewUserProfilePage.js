@@ -47,18 +47,20 @@ function NewUserProfilePage() {
     
   
     
-      useEffect(() => {
-        const fetchUserProfile = async () => {
-          try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
-            setUser(response.data);
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-          }
-        };
-        
-    }, [isLoggedIn, setUser, user.username, user]););
-    
+     useEffect(() => {
+  const fetchUserProfile = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${user.username}`);
+      setUser(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  fetchUserProfile(); // Call the function here to trigger the effect
+}, [isLoggedIn, setUser, user.username, user]);
+
+  
 
     const navigateToUpdateProfile = () => {
         navigate(`/profile/update-profile/${user.username}`);
