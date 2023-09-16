@@ -41,7 +41,7 @@ function NewUserProfilePage() {
     };
 
     const navigateToEditProfile = () => {
-      navigate('/profile/update-profile')
+      navigate('/profile/update-profile/${user.username}')
     }
 
     
@@ -60,7 +60,6 @@ function NewUserProfilePage() {
   fetchUserProfile(); // Call the function here to trigger the effect
 }, [isLoggedIn, setUser, user.username, user]);
 
-  
 
     const navigateToUpdateProfile = () => {
         navigate(`/profile/update-profile/${user.username}`);
