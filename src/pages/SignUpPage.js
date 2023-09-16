@@ -27,9 +27,9 @@ function SignUp() {
    
     const requestBody = { email: user.email, password: user.password, username: user.username };
  
-    axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, requestBody)
+    axios.post(`${process.env.REACT_APP_API_URL}/signup`, requestBody)
       .then((response) => {
-        navigate('/auth/profile/:username');
+        navigate('/profile/:username');
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -71,7 +71,7 @@ function SignUp() {
  
       <br></br>
       <p>Already have an account?</p>
-      <Link to={"/auth/login"}> Login</Link>
+      <Link to={"/login"}> Login</Link>
       </MDBContainer>
       </div>
   );
