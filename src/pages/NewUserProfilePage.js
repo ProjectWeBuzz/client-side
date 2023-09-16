@@ -56,7 +56,8 @@ function NewUserProfilePage() {
             console.error("Error fetching user data:", error);
           }
         };
-      });
+        
+    }, [isLoggedIn, setUser, user.username, user]););
     
 
     const navigateToUpdateProfile = () => {
