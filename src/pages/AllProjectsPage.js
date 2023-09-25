@@ -3,7 +3,7 @@ import axios from "axios"
 import {Link} from "react-router-dom"
 
 
-const API_URL = "http://localhost:5005";
+// const API_URL = "http://localhost:5005";
 
 function AllProjectsPage () {       
 
@@ -14,7 +14,7 @@ function AllProjectsPage () {
   const getAllProjects = () => {
 
     axios
-      .get(`${API_URL}/api/projects`, {
+      .get(`${REACT_APP_API_URL}/api/projects`, {
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
