@@ -27,7 +27,7 @@ function SignUp() {
    
     const requestBody = { email: user.email, password: user.password, username: user.username };
  
-    axios.post(`${process.env.REACT_APP_API_URL}/signup`, requestBody)
+    axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, requestBody)
       .then((response) => {
         navigate('/profile/:username');
       })

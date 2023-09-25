@@ -35,7 +35,7 @@ const handleLoginSubmit = (e) => {
   };
 
 
-  axios.post(`${process.env.REACT_APP_API_URL}/login`, requestBody)
+  axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, requestBody)
     .then((response) => {
       const authToken = response.data.authToken;
       storeToken(authToken);
